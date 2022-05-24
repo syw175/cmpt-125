@@ -1,7 +1,7 @@
 /*
  * Filename: bits.c
  *
- * Description: Outputs on stdout the memory size (in bits) of ten (10) numerical data types in C
+ * Description: Lab Exercise 1 -> Outputs on stdout the memory size (in bits) of ten (10) numerical data types in C
  *
  * Author: Steven Wong
  * Date: May 27, 2022
@@ -14,18 +14,20 @@
 #include<stdio.h>
 
 int main(void) { 
-    printf("%lu", (unsigned)sizeof(char));
-    printf("%lu", sizeof(char));
-    printf("%lu", (unsigned)sizeof(short));
-    printf("%lu", sizeof(short));
-    printf("%lu", (unsigned)sizeof(int));
-    printf("%lu", sizeof(int));
-    printf("%lu", (unsigned)sizeof(long));
-    printf("%lu", sizeof(long));
-    printf("%lu", (unsigned)sizeof(float));
-    printf("%lu", sizeof(float));
-    printf("%lu", (unsigned)sizeof(double));
-    printf("%lu", sizeof(double));
+
+
+    printf("%u\n", (unsigned)sizeof(char));
+    printf("%lu\n", sizeof(char));
+    printf("%u\n", (unsigned)sizeof(short));
+    printf("%lu\n", sizeof(short));
+    printf("%u\n", (unsigned)sizeof(int));
+    printf("%lu\n", sizeof(int));
+    printf("%u\n", (unsigned)sizeof(long));
+    printf("%lu\n", sizeof(long));
+    printf("%u\n", (unsigned)sizeof(float));
+    printf("%lu\n", sizeof(float));
+    printf("%u\n", (unsigned)sizeof(double));
+    printf("%lu\n", sizeof(double));
 
     return 0;
 }
