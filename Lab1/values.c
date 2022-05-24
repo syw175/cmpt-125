@@ -17,8 +17,8 @@ int main(void) {
     float value = 0;
     printf("Please, enter a floating point value: ");
     scanf("%f", &value);
-    printf("The smallest integer larger than or equal to %.6f is %.0f.\n", value, ceil(value));  // decimal places of ceiling
-    printf("The nearest integer to %.6f is %.0f.\n", value, round(value));  // decimal places of round
-    printf("The largest integer smaller than or equal to %.6f is %.0f.\n", value, floor(value));  // decimal places of floor
+    printf("The smallest integer larger than or equal to %.6f is %d.\n", value, (int)ceil(value));  // decimal places of ceiling
+    printf("The nearest integer to %.6f is %d.\n", value, (int)round(value));  // decimal places of round
+    printf("The largest integer smaller than or equal to %.6f is %d.\n", value, (int)floor(value));  // decimal places of floor
     return 0;
 }
