@@ -11,7 +11,8 @@
 
 #include<stdio.h>
 
-int main(void) { 
+int main(int argc, char *argv[]) { 
+
     int apples = 0;
     int appleBags = 0; 
     int bagsProduced = 0;
