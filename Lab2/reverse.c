@@ -16,30 +16,37 @@
 
 #include<stdio.h> 
 
+
 int main(int argc, char **argv) { 
-    int temp = 0;
-    int numList[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-    const int SIZE = 10;
+    const int ARRAY_SIZE = 10;
+    int helperValue = 0;
+    int numList[ARRAY_SIZE];
 
-    // Take string of 10 numbers as input 
-    // Perhaps use strtok to split numbers into an array of 10 integers?
-    // // Type cast to String or what does scanf receive? 
-
-    // Use int temp to swap positions in the array
-    for (int i = 0; i < SIZE/2; i++) { 
-        temp = numList[i]; 
-        printf("Before swapping: %d %d\n", numList[i], numList[SIZE-i-1]);
-        numList[i] = numList[SIZE-i-1];
-        numList[SIZE-i-1] = temp;
-        printf("After swapping: %d %d\n", numList[i], numList[SIZE-i-1]);
+    // Prompt the user to enter 10 values and assign their values into an array
+    printf("Please, enter 10 integers then press Enter: ");
+    for (int i = 0; i < ARRAY_SIZE; i++) { 
+        scanf("%d", &numList[i]);
     }
-    // printf("Please, enter 10 integers then press Enter:\n");
-    // scanf("")
 
-    // test printing array
-    for (int index = 0; index < 10; index++) { 
-        printf("%d\n", numList[index]);
+    // Iterate through elements of array before swapping and print values
+    printf("Contents of array before reversing: ");
+    for (int i = 0; i < ARRAY_SIZE; i++) { 
+        printf("%d ", numList[i]);
     }
+
+    // Swap elements from outer elements to inner elements with a temp value
+    for (int i = 0; i < ARRAY_SIZE/2; i++) { 
+        helperValue = numList[i]; 
+        numList[i] = numList[ARRAY_SIZE-i-1];
+        numList[ARRAY_SIZE-i-1] = helperValue;
+    }
+
+    // Iterate through elements of array after swapping and print values
+    printf("\nContents of array after reversing: ");
+    for (int i = 0; i < ARRAY_SIZE; i++) { 
+        printf("%d ", numList[i]);
+    }
+    printf("\n");
 
     return 0;
 }

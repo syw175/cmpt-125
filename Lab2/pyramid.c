@@ -29,14 +29,19 @@ int main (int argc, char **argv) {
     int width = 0;
     int breadth = 0;
     int height = 0;
+    int result = 0;
 
+    
     do { 
         printf("Please enter the width, breadth, and height of the desired pyramid: [%d, %d] \n", MIN, MAX);
         result = scanf("%d %d %d", &width, &breadth, &height);
-        if (/// CONDITIONAL HERE!! ) {
-            printf("Invalid input, please try again...")
+
+        if (width < MIN || width > MAX || breadth < MIN || breadth > MAX || height < MIN || height > MAX) {
+            printf("Invalid input, please try again...\n");
             continue;
         }
+
+
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) { 
                 if (y == 0 || y == height-1) {
@@ -49,8 +54,8 @@ int main (int argc, char **argv) {
                 }
             }
             printf("\n");
+        }
     } while (result == 3);
 
     return 0;
 }
-
