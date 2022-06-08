@@ -13,5 +13,7 @@ Note that some exercises may not be the most efficient solution. Feel free to as
 | 4    | For Loops, C Strings, Functions, Arrays                                  |
 | 5    | Makefile, Multisource Model, Header Files                                |
 
-# Assignment Summaries 
-- To-do
+# Exercises 
+> **_NOTE:_**  All questions completed as part of the course practice problems and exercises.
+
+
