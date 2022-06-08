@@ -42,10 +42,8 @@ int getArrayMax(int arr[], int arrSize) {
     return max;
 }
 
-// To-Do
 int getArraySize(int arr[]) { 
-    int size = 0;
-
+    int size = sizeof(arr) / sizeof(arr[0]);
     return size;
 }
 
@@ -66,14 +64,22 @@ int main (int argc, char **argv) {
     int arr[] = {5, 15, 16, 15, 12, 12, 12, 0, 8, 7, 15, 7, 7, 12};
     int max = 16;
     int size = 14;
-    for (int row = max; row > 0; --row) { 
-        for (int space = 0; space < size; space++) { 
-            if(arr[space] >= row) { 
-                printf("#");
-            } else {
-                printf(" ");
-            }
-        }
-        printf("\n");
-    }  
+    printf("%d", size); 
+    size = getArraySize(arr);
+    printf("%d", size);
+
+    // for (int row = max; row > 0; --row) { 
+    //     int num = 0;
+    //     for (int space = 0; space < size; space++) { 
+    //         if(arr[space] >= row) { 
+    //             printf("#");
+    //         } else {
+    //             printf(" ");
+    //         }
+    //     }
+    //     printf("\n");
+    } 
+
+
+
 }
