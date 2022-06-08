@@ -1,4 +1,4 @@
-# Introduction to Computing Science and Programming II (C/C++) - CMPT 125
+# CMPT 125 - Introduction to Computing Science and Programming II (C/C++) 
 This repository contains all my CMPT125 work and assignments for Summer 2022.
 The course is taught in C/C++ and covers topics such as fundamental algorithms; abstract data types; object oriented programming and software design. 
 
