@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     int bagsProduced = 0;
     int applesLeft = 0;
 
-    printf("Please, enter the number of apples available and the number of apples each bag holds:");
+    printf("Please, enter the number of apples available and the number of apples each bag holds: ");
 
     while (scanf("%d %d", &apples, &appleBags) == 2) { 
         printf("Number of apples available => %d, number of apples each bag holds => %d.\n", apples, appleBags);
