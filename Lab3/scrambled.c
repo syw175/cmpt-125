@@ -19,49 +19,29 @@
  *      #4 --> Returns 0
  *
  * Author: Steven Wong
- * Date: June 7, 2022
- */
-
-
-
-/* TO DO
- * Verify that the time complexity is O(n).
- * 
- * 
- * 
+ * Date: June 9, 2022
  */
 
 
 #include<stdio.h>
 
-unsigned int scrambled (int arr1[], int arr2[], unsigned int size) { 
-    // Declare two array from 0-99 to track frequency of integers.
-    int arr1ValuesCounter[100] = {};
-    int arr2ValuesCounter[100] = {};   
 
-    // Iterate through argument arrays and count their values.
+unsigned int scrambled (int arr1[], int arr2[], unsigned int size) { 
+    // Declare two array from [0-99] to record appearances of integers.
+    int arr1ValuesCounter[100] = {0};
+    int arr2ValuesCounter[100] = {0};   
+
+    // Iterate through given arrays and count apperances of integers.
     for (int i = 0; i < size; ++i) { 
         arr1ValuesCounter[arr1[i]]++;
         arr2ValuesCounter[arr2[i]]++;
     }
 
-    // Check appearance counts of arr1 integers. If they unequal, return 0; else return 1.
+    // Check equality of arr1 integers and arr2 integers appearances.
     for (int i = 0; i < size; ++i) { 
         if (arr1ValuesCounter[arr1[i]] != arr2ValuesCounter[arr1[i]]) {
             return 0;
         }
     }
     return 1;
-}
-
-// Test driver to validate function output.
-int main (int argc, char **argv) { 
-    int arr1[] = {5,3,4,2,2};
-    int arr2[] = {1,2,3,4,5};
-
-    if (scrambled(arr1, arr2, 3) == 1) { 
-        printf("\nThe arrays are the same\n");
-    } else { 
-        printf("\nThe arrays are different\n");
-    }
 }

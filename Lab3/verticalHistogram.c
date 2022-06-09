@@ -20,21 +20,16 @@
  *             ###
  *
  * Author: Steven Wong
- * Date: June 7, 2022
- */
-
-
-/* To-Do... logic to get the integers from the user
- * 
- * 
+ * Date: June 9, 2022
  */
 
 
 #include<stdio.h>
 
-int getArrayMax(unsigned int arr[], int arrSize) { 
+
+int getArrayMax (int arr[], unsigned int arrSize) {
     int max = 0;
-    for (int i = 1; i < arrSize; ++i) { 
+    for (int i = 0; i < arrSize; ++i) { 
         if (arr[i] > max) {
             max = arr[i];
         }
@@ -42,46 +37,29 @@ int getArrayMax(unsigned int arr[], int arrSize) {
     return max;
 }
 
-// int getArraySize(int arr[]) { 
-//     for (int i = 0; i < 14; i++) { 
-//         printf("%d\n", arr[i]);
-//     }
-//     printf("Size of arr: %d, Size of First elemnt %d\n", sizeof(arr), sizeof(arr[0]));
-//     int size = sizeof(arr) / sizeof(arr[0]);
-//     return size;
-// }
+int main (int argc, char **argv) {
+    const int ARRAY_SIZE = 80; 
+    int arr[ARRAY_SIZE] = {0};
 
-int main (int argc, char **argv) { 
-    unsigned int arr[80] = {0};
-    int result = 0;
-    int index = 0;
+    // Initialize counter to track values read by scanf
+    unsigned int index = 0;
     printf("Enter your integer values separated by one or more spaces \n"); 
 
-    while ((result = scanf("%d", &arr[index])) != EOF && index < 80) { 
+    // Read values from user until EOF or 80 integers are entered
+    while (scanf("%d", &arr[index]) != EOF && index < 80) { 
         index++;
     }
 
-    // printf("Index is: %d", index);
-
-    // for (int i = 0; i < 80; i++) { 
-    //     printf("\n%d", arr[i]);
-    // }
-
-
-
-    // int arr[] = {5, 15, 16, 15, 12, 12, 12, 0, 8, 7, 15, 7, 7, 12};
-    // int max = 16;
-    // int size = 14;
-
-    // for (int row = max; row > 0; --row) { 
-    //     int num = 0;
-    //     for (int space = 0; space < size; space++) { 
-    //         if(arr[space] >= row) { 
-    //             printf("#");
-    //         } else {
-    //             printf(" ");
-    //         }
-    //     }
-    //     printf("\n");
-    // } 
+    // Print vertical histogram on stdout
+    int max = getArrayMax(arr, index);
+    for (int row = max; row > 0; --row) { 
+        for (int space = 0; space < index; space++) { 
+            if(arr[space] >= row) { 
+                printf("#");
+            } else {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    } 
 }
