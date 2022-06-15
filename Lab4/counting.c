@@ -13,15 +13,24 @@
  * Sample Output: 23 4 4
  *
  * Author: Steven Wong
- * Date: June 14, 2022
+ * Date: June 15, 2022
  */
 
 
 #include<stdio.h> 
+#include<stdbool.h>
+#include<ctype.h>
 
 
-int isLetterInWord(char character) {
-    // ASCII 39 - Apostrophy?
+// Check if char is space or EOF 
+bool isSpaceOrEOF(char character) { 
+    return (isspace(character) || character == EOF);
+}
+
+
+// Check if char is a letter in the alphabet or apostrophy
+bool isLetterInWord(char character) {
+    // ASCII 39 - Apostrophy
     // ASCII 65 - 90 A-Z
     // ASCII 97 - 122 a-z
 
@@ -41,19 +50,25 @@ int isLetterInWord(char character) {
 }
 
 
-void letterFreq() {
+void letterFreq(void) {
     unsigned long charCount = 0;
     unsigned long wordCount = 0;
     unsigned long lineCount = 0;
+    char symbol;
 
-    int symbol = getchar();
-
-    while (symbol != EOF) {
-        if (isLetterInWord(symbol)) { 
+    while ((symbol = getchar()) != EOF) {
             charCount++;
+
+        char nextSymbol = getchar(); 
+        if (isSpaceOrEOF(nextSymbol) && !isLetterInWord(nextSymbol)) { 
+            wordCount++;
+        }
+
+        if(symbol == '\n') { 
+            lineCount++;
         }
     }
-    printf("%lu %lu %lu\n", charCount, wordCount, lineCount);
+    printf("Char count: %lu \nWord Count: %lu \nLine count: %lu\n", charCount, wordCount, lineCount);
 }
 
 int main(int argc, char **argv) {
