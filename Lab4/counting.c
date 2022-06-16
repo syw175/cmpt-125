@@ -21,20 +21,13 @@
 #include<stdbool.h>
 #include<ctype.h>
 
-
-// Check if char is space or EOF 
-bool isSpaceOrEOF(char character) { 
-    return (isspace(character) || character == EOF);
-}
-
-
 // Check if char is a letter in the alphabet or apostrophy
 bool isLetterInWord(char character) {
     // ASCII 39 - Apostrophy
     // ASCII 65 - 90 A-Z
     // ASCII 97 - 122 a-z
 
-    int ascii = (int)character; 
+    const int ascii = (int)character; 
     if (ascii == 39) { 
         return 1;
     }
@@ -54,19 +47,21 @@ void letterFreq(void) {
     unsigned long charCount = 0;
     unsigned long wordCount = 0;
     unsigned long lineCount = 0;
-    char symbol;
 
-    while ((symbol = getchar()) != EOF) {
-            charCount++;
+    char symbol = getchar();
 
-        char nextSymbol = getchar(); 
-        if (isSpaceOrEOF(nextSymbol) && !isLetterInWord(nextSymbol)) { 
+    while (symbol != EOF) {
+        charCount++;
+        char nextSymbol = getchar();
+
+        if (isLetterInWord(symbol) && !isLetterInWord(nextSymbol)) { 
             wordCount++;
         }
 
         if(symbol == '\n') { 
             lineCount++;
         }
+        symbol = nextSymbol;
     }
     printf("Char count: %lu \nWord Count: %lu \nLine count: %lu\n", charCount, wordCount, lineCount);
 }

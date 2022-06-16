@@ -12,8 +12,6 @@
 
 
 #include<stdio.h> 
-
-
 #define POINTS 2
 #define CORNERS 4
 
