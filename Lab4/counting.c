@@ -26,17 +26,22 @@ bool isLetterInWord(char character) {
     // ASCII 39 - Apostrophy
     // ASCII 65 - 90 A-Z
     // ASCII 97 - 122 a-z
+    const int apostrophy = 39;
+    const int capitalA = 65;
+    const int capitalZ = 90; 
+    const int lowerA = 97;
+    const int lowerZ = 122;
 
     const int ascii = (int)character; 
-    if (ascii == 39) { 
+    if (ascii == apostrophy) { 
         return 1;
     }
 
-    if (65 <= ascii && ascii <= 90) { 
+    if (capitalA <= ascii && ascii <= capitalZ) { 
         return 1;
     }
 
-    if (97 <= ascii && ascii <= 122) { 
+    if (lowerA <= ascii && ascii <= lowerZ) { 
         return 1;
     }
     return 0;
