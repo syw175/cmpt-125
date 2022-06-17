@@ -12,6 +12,9 @@ Note that some exercises may not be the most efficient solution. Feel free to as
 | 3    | Conditionals, While Loops, EOF, Memory Addresses                         |
 | 4    | For Loops, C Strings, Functions, Arrays                                  |
 | 5    | Makefile, Multisource Model, Header Files                                |
+| 6    | Dynamic Memory Allocation, Raster Images, IO Redirection, 2D Arrays      |
+| 7    | Structs, Linked Lists, Searching, Complexity Analysis                    |
+| 8    | Sorting, Complexity Analysis                                             |
 
 # Exercises 
 > **_NOTE:_**  All questions completed as part of the course practice problems and exercises.
