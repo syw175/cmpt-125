@@ -39,7 +39,7 @@ int getArrayMax (int arr[], unsigned int arrSize) {
 
 int main (int argc, char **argv) {
     const int ARRAY_SIZE = 80; 
-    int arr[ARRAY_SIZE] = {0};
+    int arr[ARRAY_SIZE];
 
     // Initialize counter to track values read by scanf
     unsigned int index = 0;
