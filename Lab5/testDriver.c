@@ -79,7 +79,7 @@ int main( int argc, char* argv[] ) {
 
   // Testing the copy function
   printf("Copy of image\n");
-  uint8_t img2[] = copy(img, imgwidth, imgheight); 
+  uint8_t *img2 = copy(img, imgwidth, imgheight); 
   draw_image_grey(img2, imgwidth, imgheight);
 
 
@@ -100,7 +100,7 @@ int main( int argc, char* argv[] ) {
 
   // Testing the invert color function 
 
-  
+
 
 
 

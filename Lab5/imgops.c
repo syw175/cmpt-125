@@ -152,7 +152,7 @@ void flip_horizontal( uint8_t array[],
                       unsigned int rows )
 {
     // Copy the image to be mirrored 
-    const uint8_t imgCopy[] = copy(array, cols, rows);
+    const uint8_t *imgCopy = copy(array, cols, rows);
 
     for (int y = 0; y < rows; ++y) { 
         for (int x = 0; x < cols; ++x) { 
