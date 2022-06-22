@@ -66,6 +66,44 @@ int main( int argc, char* argv[] ) {
   printf( "Original image\n" );
   draw_image_grey( img, imgwidth, imgheight );
 
+
+  // Test the darkest color function 
+  uint8_t darkestColor = darkest(img, imgwidth, imgheight);
+  printf("The darkest color in the image is: %u\n", darkestColor);
+
+
+  // Test the lightest color function 
+  uint8_t lightestColor = lightest(img, imgwidth, imgheight);
+  printf("The lightest color in the image is: %u\n", lightestColor);
+
+
+  // Testing the copy function
+  printf("Copy of image\n");
+  uint8_t img2[] = copy(img, imgwidth, imgheight); 
+  draw_image_grey(img2, imgwidth, imgheight);
+
+
+  // Testing the zero function
+  printf("Copy of image zero'd\n");
+  zero(img2, imgwidth, imgheight); 
+  draw_image_grey(img2, imgwidth, imgheight);
+
+
+  // Testing the replace color function
+
+
+  // Testing the flip horizontal function
+
+
+  // Testing the locate color function 
+
+
+  // Testing the invert color function 
+
+  
+
+
+
   // ********************************************************
   // Get more windows if needed by copying, pasting and modifying the above code
   // ********************************************************

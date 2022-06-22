@@ -56,7 +56,11 @@ void zero( uint8_t array[],
 	   unsigned int cols,
 	   unsigned int rows )
 {
-    // Put your code here
+    for (int y = 0; y < rows; ++y) {  // Iterate through rows in img
+        for (int x = 0; x < cols; ++x) {  // Iterate through cols in img
+            set_pixel(array, cols, rows, x, y, 0);  // Set each pixel to black (0)
+        }
+    }
     return;
 }
 
@@ -70,17 +74,42 @@ uint8_t* copy( const uint8_t array[],
                unsigned int cols, 
                unsigned int rows )
 {
-    // Put your code here
-    return NULL; // You will need to change NULL to something more appropriate.
+    // Create a new array on heap of the same size as array
+    uint8_t* imgCopy = malloc(cols * rows * sizeof(uint8_t));
+
+    // Check if malloc correctly allocated mem to heap 
+    if (imgCopy == NULL) {
+        return NULL;
+    }
+
+    // Set each color value in newCopy img to the color value of original
+    for (int y = 0; y < rows; ++y) { 
+        for (int x = 0; x < cols; ++x) { 
+            uint8_t color = get_pixel(array, cols, rows, x, y);
+            set_pixel(imgCopy, cols, rows, x, y, color);
+        }
+    }
+    return imgCopy;
 }
 
 /* Return the darkest color that appears in the image. */
 uint8_t darkest( const uint8_t array[], 
                  unsigned int cols, 
                  unsigned int rows )
-{
-    // Put your code here
-    return 0; // You will need to change 0 to something more appropriate.
+{   
+    // Set darkest color to maximum color value
+    uint8_t darkestColor = 255;
+
+    // Check colors in img to see if there is a darker color than darkestCol
+    for (int y = 0; y < rows; ++y) { 
+        for (int x = 0; x < cols; ++x) { 
+            uint8_t currentColor = get_pixel(array, cols, rows, x, y);
+            if (currentColor < darkestColor) { 
+                darkestColor = currentColor;
+            }
+        }
+    }
+    return darkestColor;
 }
 
 /* Return the lightest color that appears in the image. */
@@ -88,8 +117,16 @@ uint8_t lightest( const uint8_t array[],
 	              unsigned int cols, 
 	              unsigned int rows )
 {
-	// Put your code here
-	return 0; // You will need to change 0 to something more appropriate.
+    uint8_t lightestColor = 0; 
+    for (int y = 0; y < rows; ++y) { 
+        for (int x = 0; x < cols; ++ x) { 
+            uint8_t currentColor = get_pixel(array, cols, rows, x, y); 
+            if (lightestColor < currentColor) {
+                lightestColor = currentColor;
+            } 
+        }
+    }
+    return lightestColor;
 }
 
 /* Replace every instance of pre_color with post_color. */
@@ -99,7 +136,13 @@ void replace_color( uint8_t array[],
                     uint8_t pre_color,
                     uint8_t post_color )
 {
-	// Put your code here
+    for (int y = 0; y < rows; ++y) { 
+        for (int x = 0; x < cols; ++x) { 
+            if (get_pixel(array, cols, rows, x, y) == pre_color) { 
+                set_pixel(array, cols, rows, x, y, post_color);
+            }
+        }
+    }
 	return;
 }
 
@@ -108,7 +151,15 @@ void flip_horizontal( uint8_t array[],
                       unsigned int cols, 
                       unsigned int rows )
 {
-    // Put your code here
+    // Copy the image to be mirrored 
+    const uint8_t imgCopy[] = copy(array, cols, rows);
+
+    for (int y = 0; y < rows; ++y) { 
+        for (int x = 0; x < cols; ++x) { 
+            uint8_t color = get_pixel(imgCopy, cols, rows, (cols-1-x), y);
+            set_pixel(array, cols, rows, x, y, color);
+        }
+    }
     return;
 }
 
@@ -125,8 +176,17 @@ int locate_color( const uint8_t array[],
                   unsigned int *x,
                   unsigned int *y )
 {
-    // Put your code here
-    return 0;  // You will need to change 0 to something more appropriate.
+    for (int yValue = 0; yValue < rows; ++yValue) { 
+        for (int xValue = 0; xValue < cols; ++xValue) { 
+            if (get_pixel(array, cols, rows, xValue, yValue) == color) { 
+                // Is this how you set a pointer value? 
+                *x = xValue;
+                *y = yValue;
+                return 1;             
+            }
+        }
+    }
+    return 0;
 }
 
 /* Invert the image such that black becomes white and vice
