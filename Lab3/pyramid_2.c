@@ -16,36 +16,40 @@
  * Author: Steven Wong
  * Date: June 9, 2022
  */
+ 
 
 #include <stdio.h>
-#include <math.h> 
+#include <math.h>
 
-#include <stdio.h>
-#include <math.h> 
 
 int main(int argc, char **argv) {
-    const int SIZE = 3;
-    int dimensions[SIZE] = {0}; 
-    int width = 7; 
-    int breadth = 7; 
-    int height = 4; 
 
+	int width, breadth, height;
     printf("Enter your width, breadth, and height values [0-50], separated by one or more spaces: ");
-    // for (int i = 0; i < 3; ++i) { 
-    //     scanf("%d", &dimensions[i]);
-    // }
+    scanf("%d %d %d", &width, &breadth, &height);
 
-    for (int row = height; row > 0; --row) { 
-        printf("\n");
-        for (int i = 0; i < row; i++) { 
-            printf(" ");
-        }
-        for (int i = 0; i < width-row-1; i++) {
+    for (int j = height - 1; j >= 0 ; j--) {
+        int left = floor(j*(width/(2.0*height)));
+        int right = ceil((width-1) + -j*(width/(2.0*height)));
+
+        for (int i = 0; i < width; i++) {
+            if (i == left || i == right  || j == 0 ) {
             printf("#");
-        }
-        for (int i = 0; i < row; i++) { 
-            printf(" ");
-        }
+            }
+
+            if ( j == (height-1) && (right-1) != left && i > left && i < right) {
+                printf("#");
+            }
+
+            if (i > left && i < right && j > 0 && j != (height-1)) {
+                printf(".");
+            }
+
+            if (i < left && j > 0) {
+                printf(" ");
+            }
+        }	
+        printf("\n");
     }
-    printf("\n");
+    return 0;
 }
