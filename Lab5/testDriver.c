@@ -61,6 +61,7 @@ int main( int argc, char* argv[] ) {
       memset( img, 0, imgwidth * imgheight * sizeof(img[0] ));
     }
 
+
   // Draw the array as a grey-scale image in the window
   // This function returns after a user clicks in the window or presses a button 
   printf( "Original image\n" );
@@ -81,28 +82,37 @@ int main( int argc, char* argv[] ) {
   printf("Copy of image\n");
   uint8_t *img2 = copy(img, imgwidth, imgheight); 
   draw_image_grey(img2, imgwidth, imgheight);
+  
 
+  // Testing the flipped horizontally function
+  printf("Copy of image flipped horizontally\n");
+  flip_horizontal (img2, imgwidth, imgheight);
+  draw_image_grey(img2, imgwidth, imgheight);
+  
+
+  // Testing the replace color function
+  printf("Copy of image with colors replaced\n");
+  replace_color(img2, imgwidth, imgheight, 0, 255);
+  draw_image_grey(img2, imgwidth, imgheight);
+  
+  
+  // Testing the locate color function
+  printf("Finding the first pixel with a value that is white\n");
+  unsigned int x;
+  unsigned int y; 
+  locate_color(img2, imgwidth, imgheight, 0, &x, &y);
+  printf("The first appearance of color white (255) is at the pixel (%d, %d)\n", x, y);
+  
 
   // Testing the zero function
   printf("Copy of image zero'd\n");
   zero(img2, imgwidth, imgheight); 
+  lightestColor = lightest(img2, imgwidth, imgheight);
+  darkestColor = darkest(img2, imgwidth, imgheight);
+  printf("The darkest color in the zero'd image is: %u\n", darkestColor);
+  printf("The lightest color in the zero'd image is: %u\n", lightestColor);
   draw_image_grey(img2, imgwidth, imgheight);
-
-
-  // Testing the replace color function
-
-
-  // Testing the flip horizontal function
-
-
-  // Testing the locate color function 
-
-
-  // Testing the invert color function 
-
-
-
-
+  
 
   // ********************************************************
   // Get more windows if needed by copying, pasting and modifying the above code
@@ -114,9 +124,11 @@ int main( int argc, char* argv[] ) {
 
   // Every malloc() should have a matching free()
   free(img);
+  free(img2);
    
   // Let's get in the habit of setting all freed pointers to NULL
   img = NULL;
+  img2 = NULL;
   
   return 0;
 }

@@ -6,8 +6,8 @@
  * Author: RV - 2014
  * Modified by: AL - 2022
  *
- * Completed by: <Put your name here>
- * Completion Date: 
+ * Completed by: Steven Wong
+ * Completion Date: June 22, 2022
  */
 
 #include <assert.h>
@@ -56,6 +56,8 @@ void zero( uint8_t array[],
 	   unsigned int cols,
 	   unsigned int rows )
 {
+
+	// To Do MemSet
     for (int y = 0; y < rows; ++y) {  // Iterate through rows in img
         for (int x = 0; x < cols; ++x) {  // Iterate through cols in img
             set_pixel(array, cols, rows, x, y, 0);  // Set each pixel to black (0)
@@ -179,7 +181,6 @@ int locate_color( const uint8_t array[],
     for (int yValue = 0; yValue < rows; ++yValue) { 
         for (int xValue = 0; xValue < cols; ++xValue) { 
             if (get_pixel(array, cols, rows, xValue, yValue) == color) { 
-                // Is this how you set a pointer value? 
                 *x = xValue;
                 *y = yValue;
                 return 1;             
@@ -197,6 +198,12 @@ void invert( uint8_t array[],
              unsigned int cols, 
              unsigned int rows )
 {
-    // Put your code here
+    for (int y = 0; y < rows; y++) { 
+        for (int x = 0; x < cols; x++) { 
+            uint8_t currentCol = get_pixel(array, cols, rows, x, y); 
+            uint8_t newCol = abs(currentCol-255);
+            set_pixel(array, cols, rows, x, y, newCol);
+        }
+    }
 	return;
 }
