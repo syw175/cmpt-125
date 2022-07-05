@@ -10,31 +10,42 @@
 
 #include <stdio.h>
 #include "dataStructure.h"
+#include <stdlib.h>  // for rand()
 
 int main (void) 
 {
-    
-    printf("What size array do you want? "); 
-    int size = scanf("%d", &size);
+    // Testing the create function 
+    unsigned int size = 10;
     intArray_t *array = intArray_create(size);
 
+    // Testing the intArray_append function
+    for (int i = 0; i < size; i++) 
+    {
+        int val = rand(); 
+        intArrayResult_t result = intArray_append(array, val); 
+        if (result == INTARR_OK)
+        {
+            printf("Added %d to index %d\n", val, i);
+        }
+    }
 
-    printf("Now printing an array of size %d\n ", size);
+    // Testing the intArray_print function
+    printf("\nNow printing an array of size %i\n", size);
     intArray_print(array);
 
 
-    printf("Now testing the destroy array function\n");
-    intArray_destroy(array);
-    if (array == NULL)
+    // Testing the intArray_destroy array function
+    printf("\nNow testing the destroy array function\n");
+    intArrayResult_t newReslt = intArray_destroy(array);
+    if (newReslt == INTARR_OK)
     {
-        printf("Array has been destroyed\n");
+        printf("Destroyed\n");
     }
-    else 
-    { 
-        printf("Array destroy failed");
-    }
-
-
-    
-
 }
+
+    // WHY IS MY POINTER NOT GOING TO NULL AFTER DESTROY????
+    // if (array == NULL) 
+    // { 
+    //     printf("ok\n");
+    // }
+// }

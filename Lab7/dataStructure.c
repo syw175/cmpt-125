@@ -82,6 +82,7 @@ intArrayResult_t intArray_destroy( intArray_t* ia ) {
   return INTARR_OK;
 }
 
+
 /* Description: Appends "newElement" and returns INTARR_OK. 
  *              If "newElement" cannot be appended, leaves the 
  *              data structure unmodified and returns INTARR_ERROR.
@@ -90,13 +91,27 @@ intArrayResult_t intArray_destroy( intArray_t* ia ) {
  */
 intArrayResult_t intArray_append( intArray_t* ia, int newElement ) {
 	
-  // Stubbing this function
-  // This stub is to be removed when you have successfully implemented this function.
-  printf( "Calling intArray_append(...) with the parameter newElement -> %d.\n", newElement );
+  // TODO DOUBLE CHECK -> SEEMS OK 
+  // If the array is full, do not apend and return error 
+  if (ia->size <= ia->elementCount)
+  {
+    return INTARR_ERROR;
+  }
+
+  // If bad pointer, return error 
+  if (ia == NULL) 
+  { 
+    return INTARR_BADPARAM; 
+  }
+
+  unsigned int indexToAppend = ia->elementCount;
+  ia->data[indexToAppend] = newElement;
+  ia->elementCount++;
 	
-  return INTARR_OK; // You are free to modify this return statement.
+  return INTARR_OK;
 }
 				
+
 /* Description: Removes the element at "indexToBeRemoved" in the data structure
  *              and returns INTARR_OK. If the data structure was initially sorted,
  *              it does not remain sorted after removing the element at "indexToBeRemoved".
@@ -177,20 +192,13 @@ intArray_t* intArray_copy( const intArray_t* ia ) {
  * Time Efficiency: O(n)
  */
 intArrayResult_t intArray_print( intArray_t* ia ) {
-	
-  // Stubbing this function
-  // This stub is to be removed when you have successfully implemented this function.
-  printf( "Calling intArray_print(...).\n" );
-
 
   if (ia == NULL)
   {
     return INTARR_NOTFOUND;
   }
 
-  printf("Size: %i\nElement Count: %i\nArray Elements: ", ia->size, ia->elementCount);
-
-  for (int i = 0, int n = ia->elementCount; i < n; i++) 
+  for (int i = 0, n = ia->elementCount; i < n; i++) 
   {
     printf("%i ", ia->data[i]);
   }
