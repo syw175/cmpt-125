@@ -55,6 +55,7 @@ intArray_t* intArray_create( unsigned int size ) {
   return ia;
 }
 
+
 /* 
  * Description: Frees all memory allocated for "ia".
  *              If the pointer "ia" is NULL, it does nothing. 
@@ -91,7 +92,7 @@ intArrayResult_t intArray_destroy( intArray_t* ia ) {
  */
 intArrayResult_t intArray_append( intArray_t* ia, int newElement ) {
 	
-  // TODO DOUBLE CHECK -> SEEMS OK 
+  // TODO DOUBLE CHECK ESP THE EDGE INDEXES -> SEEMS OK 
   // If the array is full, do not apend and return error 
   if (ia->size <= ia->elementCount)
   {
@@ -110,7 +111,7 @@ intArrayResult_t intArray_append( intArray_t* ia, int newElement ) {
 	
   return INTARR_OK;
 }
-				
+
 
 /* Description: Removes the element at "indexToBeRemoved" in the data structure
  *              and returns INTARR_OK. If the data structure was initially sorted,
@@ -123,9 +124,20 @@ intArrayResult_t intArray_remove( intArray_t* ia, unsigned int indexToBeRemoved 
   // Stubbing this function
   // This stub is to be removed when you have successfully implemented this function.
   printf( "Calling intArray_remove(...) with the parameter indexToBeRemoved -> %u.\n" , indexToBeRemoved );
+
+  // Test the edge cases REQ.
+  if (ia == NULL || ia->elementCount <= indexToBeRemoved) { 
+    return INTARR_BADPARAM;
+  }
+
+  int lastElementIndex = ia->elementCount-1;
+  ia->data[indexToBeRemoved] = ia->data[lastElementIndex];
+  ia->elementCount--;
+
 	
   return INTARR_OK; // You are free to modify this return statement.
 }
+
 
 /* Description: Modifies (overwrites) the element at "index" with "newElement"
  *              and returns INTARR_OK. If "ia" is NULL or "index" is out of bounds,
@@ -134,13 +146,19 @@ intArrayResult_t intArray_remove( intArray_t* ia, unsigned int indexToBeRemoved 
  */
 intArrayResult_t intArray_modify( intArray_t* ia, int newElement, unsigned int index ) {
 	
-  // Stubbing this function
-  // This stub is to be removed when you have successfully implemented this function.
   printf( "Calling intArray_modify(...) with the parameters newElement -> %d and index -> %u.\n" , newElement, index );
 	
-  return INTARR_OK; // You are free to modify this return statement.
+  if (ia == NULL || index >= ia->size) 
+  { 
+    return INTARR_BADPARAM;
+  }
+
+  ia->data[index] = newElement; 
+
+  return INTARR_OK;
 }
-							
+
+
 /* Description: Finds the first occurrence of "targetElement" in the data structure,
  *              sets *index to its index and returns INTARR_OK. If "targetElement" 
  *              does not occur in the data structure, leaves *index unmodified 
@@ -149,12 +167,28 @@ intArrayResult_t intArray_modify( intArray_t* ia, int newElement, unsigned int i
  */
 intArrayResult_t intArray_find( intArray_t* ia, int targetElement, unsigned int* index ) {
     
-  // Stubbing this function
-  // This stub is to be removed when you have successfully implemented this function.
   printf( "Calling intArray_find(...) with the parameter targetElement -> %d.\n" , targetElement );
+
+  // Check if a valid pointer to an array was given 
+  if (ia == NULL) 
+  {
+    return INTARR_BADPARAM;
+  }
+
+  // Check if the targetElement exists in the intArray_t
+  for (int i = 0, n = ia->elementCount; i < n; i++)
+  {
+    if (ia->data[i] == targetElement)
+    {
+      *index = i;
+      return INTARR_OK;
+    }
+  }
 	
-  return INTARR_NOTFOUND; // You are free to modify this return statement.
+  // If not found after searching, return INTARR_NOTFOUND
+  return INTARR_NOTFOUND;
 }
+
 
 /* Description: Sorts the data structure by value in ascending sort order 
  *              (by smallest-to-largest), such that data[i] < data[i+1] for all valid i, 
@@ -166,26 +200,52 @@ intArrayResult_t intArray_find( intArray_t* ia, int targetElement, unsigned int*
  */
 intArrayResult_t intArray_sort( intArray_t* ia ) {
 	
-  // Stubbing this function
-  // This stub is to be removed when you have successfully implemented this function.
+  // TO-DO OPTIMIZE BUBBLE SORT TO STOP IF NO SWAPS WERE MADE IN A ITERATION
   printf( "Calling intArray_sort(...).\n" );
+
+  if (ia == NULL) { 
+    return INTARR_BADPARAM;
+  }
+
+  for (int i = 0; i < ia->elementCount; i++) { 
+    for (int k = 0; k < ia->elementCount-i-1; k++) { 
+      if (ia->data[k] > ia->data[k+1]) { 
+        int buffer = ia->data[k]; 
+        ia->data[k] = ia->data[k+1];
+        ia->data[k+1] = buffer;
+      }
+    }
+  }
 	
-  return INTARR_OK;  // You are free to modify this return statement.
+  return INTARR_OK;
 }
 							
+
 /* Description: Returns a duplicate copy of "ia", allocating new storage 
  *              for this duplicate data (we call this a "deep copy"). 
  *              If unsuccessful (i.e. memory allocation for the copy fails, 
  *              or "ia" is NULL), returns a NULL pointer. 
  */
 intArray_t* intArray_copy( const intArray_t* ia ) {
-
-  // Stubbing this function
-  // This stub is to be removed when you have successfully implemented this function.
   printf( "Calling intArray_copy(...).\n" );
-  
-  return NULL; // You are free to modify this return statement.
+
+  // Check if the passed int array is valid
+  if (ia == NULL) { 
+    return NULL;
+  }
+
+  unsigned int size = ia->size;
+  intArray_t *intArray_copy = intArray_create(size);
+
+  if (intArray_copy != NULL) { 
+    intArray_copy->elementCount = ia->elementCount;
+      for (int i = 0, n = intArray_copy->elementCount; i < n; i++) {
+        intArray_copy->data[i] = ia->data[i];
+      }
+  }
+  return intArray_copy;
 }
+
 
 /* Description: Prints each field (member) of the data structure "ia" and
  *              prints each element of its array field then returns INTARR_OK.
@@ -203,8 +263,16 @@ intArrayResult_t intArray_print( intArray_t* ia ) {
     printf("%i ", ia->data[i]);
   }
   
-  return INTARR_OK;  // You are free to modify this return statement.
+  return INTARR_OK;
 }
+
+
+
+
+
+
+
+
 
 /* Description: Writes (saves) the entire array "ia" into a file 
  *              called "filename" in a JSON text file format (explained below)
@@ -232,6 +300,16 @@ intArrayResult_t intArray_write_to_json( intArray_t* ia, const char* filename ) 
   // Stubbing this function
   // This stub is to be removed when you have successfully implemented this function.
   printf( "Calling intArray_write_to_json(...) with the filename -> %s.\n", filename );
+
+  // char *arrayInfo = malloc(ia->elementCount*sizeof(int));
+  // fread(arrayInfo, sizeof(int), ia->elementCount, ia->data); 
+
+
+  FILE *newFile; 
+  newFile = fopen(filename, "w");
+  int fprintf(ia->data, sizeof(int), ia->elementCount, newFile);
+
+
 
   return INTARR_OK; // You are free to modify this return statement.
 }
