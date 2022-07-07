@@ -93,19 +93,21 @@ intArrayResult_t intArray_destroy( intArray_t* ia ) {
  */
 intArrayResult_t intArray_append( intArray_t* ia, int newElement ) {
 	
-  // TODO DOUBLE CHECK ESP THE EDGE INDEXES -> SEEMS OK 
+  // TODO!!!!!!!!!!!
+  // DOUBLE CHECK ESP THE EDGE INDEXES -> SEEMS OK 
+  
+  // Validate parameters
+  if (ia == NULL) {
+    return INTARR_BADPARAM; 
+  }
+
   // If the array is full, do not apend and return error 
   if (ia->size <= ia->elementCount)
   {
     return INTARR_ERROR;
   }
 
-  // If bad pointer, return error 
-  if (ia == NULL) 
-  { 
-    return INTARR_BADPARAM; 
-  }
-
+  // Append newElement to the next unfilled slot in the array and increment elementCount
   unsigned int indexToAppend = ia->elementCount;
   ia->data[indexToAppend] = newElement;
   ia->elementCount++;
@@ -122,15 +124,17 @@ intArrayResult_t intArray_append( intArray_t* ia, int newElement ) {
  */
 intArrayResult_t intArray_remove( intArray_t* ia, unsigned int indexToBeRemoved ) {
 	
-  // Stubbing this function
-  // This stub is to be removed when you have successfully implemented this function.
   printf( "Calling intArray_remove(...) with the parameter indexToBeRemoved -> %u.\n" , indexToBeRemoved );
 
+  // TO-DO!!!!!!!!!
   // Test the edge cases REQ.
+
+  // Validate parameters
   if (ia == NULL || ia->elementCount <= indexToBeRemoved) { 
     return INTARR_BADPARAM;
   }
 
+  // Swap the last element to the value at indexToBeRemoved, decrement elementCount
   int lastElementIndex = ia->elementCount-1;
   ia->data[indexToBeRemoved] = ia->data[lastElementIndex];
   ia->elementCount--;
@@ -149,11 +153,12 @@ intArrayResult_t intArray_modify( intArray_t* ia, int newElement, unsigned int i
 	
   printf( "Calling intArray_modify(...) with the parameters newElement -> %d and index -> %u.\n" , newElement, index );
 	
-  if (ia == NULL || index >= ia->size) 
-  { 
+  // Validate parameters
+  if (ia == NULL || index >= ia->size) { 
     return INTARR_BADPARAM;
   }
 
+  // Assign a new value to the element at index "index"
   ia->data[index] = newElement; 
 
   return INTARR_OK;
@@ -170,17 +175,15 @@ intArrayResult_t intArray_find( intArray_t* ia, int targetElement, unsigned int*
     
   printf( "Calling intArray_find(...) with the parameter targetElement -> %d.\n" , targetElement );
 
-  // Check if a valid pointer to an array was given 
-  if (ia == NULL) 
-  {
+  // Validate parameters
+  if (ia == NULL) {
     return INTARR_BADPARAM;
   }
 
   // Check if the targetElement exists in the intArray_t
-  for (int i = 0, n = ia->elementCount; i < n; i++)
-  {
-    if (ia->data[i] == targetElement)
-    {
+  for (int i = 0, n = ia->elementCount; i < n; i++) {
+    // If found, set index to the current location in the array
+    if (ia->data[i] == targetElement) {
       *index = i;
       return INTARR_OK;
     }
@@ -201,13 +204,16 @@ intArrayResult_t intArray_find( intArray_t* ia, int targetElement, unsigned int*
  */
 intArrayResult_t intArray_sort( intArray_t* ia ) {
 	
-  // TO-DO OPTIMIZE BUBBLE SORT TO STOP IF NO SWAPS WERE MADE IN A ITERATION
+  // TO-DO !!!!
+  // OPTIMIZE BUBBLE SORT TO STOP IF NO SWAPS WERE MADE IN A ITERATION
   printf( "Calling intArray_sort(...).\n" );
 
+  // Validate parameters
   if (ia == NULL) { 
     return INTARR_BADPARAM;
   }
 
+  // Bubble Sort our data structure
   for (int i = 0; i < ia->elementCount; i++) { 
     for (int k = 0; k < ia->elementCount-i-1; k++) { 
       if (ia->data[k] > ia->data[k+1]) { 
@@ -230,14 +236,16 @@ intArrayResult_t intArray_sort( intArray_t* ia ) {
 intArray_t* intArray_copy( const intArray_t* ia ) {
   printf( "Calling intArray_copy(...).\n" );
 
-  // Check if the passed int array is valid
+  // Validate parameters
   if (ia == NULL) { 
     return NULL;
   }
 
+  // Allocate memory for deep copy 
   unsigned int size = ia->size;
   intArray_t *intArray_copy = intArray_create(size);
 
+  // Copy values from original data structure to the deep copy
   if (intArray_copy != NULL) { 
     intArray_copy->elementCount = ia->elementCount;
       for (int i = 0, n = intArray_copy->elementCount; i < n; i++) {
@@ -254,13 +262,13 @@ intArray_t* intArray_copy( const intArray_t* ia ) {
  */
 intArrayResult_t intArray_print( intArray_t* ia ) {
 
-  if (ia == NULL)
-  {
+  // Validate parameters
+  if (ia == NULL) {
     return INTARR_NOTFOUND;
   }
 
-  for (int i = 0, n = ia->elementCount; i < n; i++) 
-  {
+  // Print out each element from our data structure
+  for (int i = 0, n = ia->elementCount; i < n; i++) {
     printf("%i ", ia->data[i]);
   }
   
@@ -323,6 +331,9 @@ intArrayResult_t intArray_write_to_json( intArray_t* ia, const char* filename ) 
 
 
 
+
+
+
 /* Description: Loads a new array from the file called "filename", that was
  *              previously saved using intArray_write_to_json(...). The file may 
  *              contain an empty array. Returns a pointer to a newly-allocated 
@@ -345,7 +356,31 @@ intArray_t* intArray_load_from_json( const char* filename ) {
     return NULL;
   }
 
+  // Count elements and size of the data structure from the file
+  // TO-DO!!!
+  unsigned int size = 0; 
 
 
-  return NULL; // You are free to modify this return statement.
+
+  // Create data structure with the size previously read, ensure that mem is correctly allocated
+  intArray_t *arrayRead = intArray_create(size);
+  if (arrayRead == NULL) { 
+    fclose(toReadFile); 
+    return NULL;
+  }
+
+
+  // Return to the start of the file and read elements to our data structure
+  // TO-DO!!!!
+  int valuesAdded = 0; 
+
+
+
+  // Validate that elements were correctly read into our data structure 
+  if (size != valuesAdded) { 
+    fclose(toReadFile);
+    return NULL;
+  }
+
+  return arrayRead;
 }
