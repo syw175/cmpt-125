@@ -21,6 +21,7 @@
 #include <stdio.h>  // for file i/o calls
 #include <time.h>   // for time()
 #include <string.h> // for strlen()
+#include <assert.h> 
  
 #include "dataStructure.h"
 
@@ -267,13 +268,6 @@ intArrayResult_t intArray_print( intArray_t* ia ) {
 }
 
 
-
-
-
-
-
-
-
 /* Description: Writes (saves) the entire array "ia" into a file 
  *              called "filename" in a JSON text file format (explained below)
  *              that can be loaded by the function intArray_load_from_json(...).
@@ -297,22 +291,36 @@ intArrayResult_t intArray_print( intArray_t* ia ) {
  */
 intArrayResult_t intArray_write_to_json( intArray_t* ia, const char* filename ) {
 
-  // Stubbing this function
-  // This stub is to be removed when you have successfully implemented this function.
   printf( "Calling intArray_write_to_json(...) with the filename -> %s.\n", filename );
 
-  // char *arrayInfo = malloc(ia->elementCount*sizeof(int));
-  // fread(arrayInfo, sizeof(int), ia->elementCount, ia->data); 
+  // Validate parameters
+  assert(ia != NULL); 
+  assert(filename != NULL);
 
+  // Open file for writing
+  FILE *newFile = fopen(filename, "w");
+  if (newFile == NULL) { 
+    return INTARR_ERROR;
+  }
 
-  FILE *newFile; 
-  newFile = fopen(filename, "w");
-  int fprintf(ia->data, sizeof(int), ia->elementCount, newFile);
+  // Write to file contents of intArray_t in JSON format
+  if (ia->elementCount > 0) {
+    fwrite("[\n", sizeof(char), 2, newFile);
+    for (int i = 0; i < ia->elementCount; i++) { 
+      if (fprintf(newFile, " %d%s", ia->data[i], i < ia->elementCount-1 ? ",\n" : "\n]") < 1) { 
+        fclose(newFile); 
+        return INTARR_ERROR;
+      }
+    }
+  }
 
-
-
-  return INTARR_OK; // You are free to modify this return statement.
+  // Close file and return INTARR_OK
+  fclose(newFile);
+  return INTARR_OK;
 }
+
+
+
 
 
 /* Description: Loads a new array from the file called "filename", that was
@@ -327,6 +335,17 @@ intArray_t* intArray_load_from_json( const char* filename ) {
   // Stubbing this function
   // This stub is to be removed when you have successfully implemented this function.
   printf( "Calling intArray_load_from_json(...) with the filename -> %s.\n", filename );
+
+  // Validate parameters 
+  assert(filename != NULL);
+
+  // Open file 
+  FILE *toReadFile = fopen(filename, "r");
+  if (toReadFile == NULL) { 
+    return NULL;
+  }
+
+
 
   return NULL; // You are free to modify this return statement.
 }
