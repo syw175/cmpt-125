@@ -385,7 +385,8 @@ intArray_t* intArray_load_from_json( const char* filename ) {
   }
 
   // If number of elements in the file, return an empty intArray_t
-  if (size == 0) { 
+  if (size == 0) {
+    arrayRead->elementCount = 0;
     return arrayRead;
   }
 
