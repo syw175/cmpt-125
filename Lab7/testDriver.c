@@ -20,13 +20,16 @@ int main (void)
 
     // Testing the intArray_append function
     printf("\nNow testing the intArray_append function with size %d\n", size);
-    for (int i = 0; i < size; i++) 
+    for (int i = 0; i < size+1; i++) 
     {
         int val = rand(); 
         intArrayResult_t result = intArray_append(array, val); 
         if (result == INTARR_OK)
         {
             printf("Added %d to index %d\n", val, i);
+        }
+        else { 
+            printf("Adding %d to index %d failed\n", val, i);
         }
     }
 
@@ -74,9 +77,13 @@ int main (void)
     }
 
     // Testing the intArray_remove function 
-    printf("\nNow removing the value at index 2 in the copy array\n");
-    if (intArray_remove(arrayCopy, 2) == INTARR_OK) { 
+    printf("\nNow removing the value at index 5 in the copy array\n");
+    if (intArray_remove(arrayCopy, 5) == INTARR_OK) { 
         printf("\nRemove succeeded, now printing\n");
+        intArray_print(arrayCopy);
+    }
+    else { 
+        printf("\nRemove failed, now printing \n");
         intArray_print(arrayCopy);
     }
 
@@ -92,11 +99,11 @@ int main (void)
     printf("\nNow printing to a file called: newFile\n");
     intArray_write_to_json(arrayCopy, "newFile");
 
+    // Testing the intArray_load_from_json 
+    intArray_t *loadedArray = intArray_load_from_json("newFile");
+    intArray_print(loadedArray);
 
- 
-        // WHY IS MY POINTER NOT GOING TO NULL AFTER DESTROY????
-    // if (array != NULL) 
-    // { 
-    //     printf("ok\n");
-    // }
+    if (array != NULL) { 
+        printf("ok\n");
+    }
 }

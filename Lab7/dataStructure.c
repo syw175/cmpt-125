@@ -17,12 +17,14 @@
  * Completed on: July 8, 2022
 */
 
+
 #include <stdlib.h> // for malloc() and for rand()
 #include <stdio.h>  // for file i/o calls
 #include <time.h>   // for time()
 #include <string.h> // for strlen()
-#include <assert.h> 
- 
+#include <assert.h> // for assert()
+#include <ctype.h> // for isdigit()
+
 #include "dataStructure.h"
 
 
@@ -81,6 +83,7 @@ intArrayResult_t intArray_destroy( intArray_t* ia ) {
     ia = NULL;
   }
 
+  // Return INTARR_OK upon success
   return INTARR_OK;
 }
 
@@ -92,16 +95,13 @@ intArrayResult_t intArray_destroy( intArray_t* ia ) {
  * Time efficiency: O(1)
  */
 intArrayResult_t intArray_append( intArray_t* ia, int newElement ) {
-	
-  // TODO!!!!!!!!!!!
-  // DOUBLE CHECK ESP THE EDGE INDEXES -> SEEMS OK 
-  
+	  
   // Validate parameters
   if (ia == NULL) {
     return INTARR_BADPARAM; 
   }
 
-  // If the array is full, do not apend and return error 
+  // If the "newElement" cannot be appended, return INTARR_ERROR
   if (ia->size <= ia->elementCount)
   {
     return INTARR_ERROR;
@@ -112,6 +112,7 @@ intArrayResult_t intArray_append( intArray_t* ia, int newElement ) {
   ia->data[indexToAppend] = newElement;
   ia->elementCount++;
 	
+  // Return INTARR_OK upon success
   return INTARR_OK;
 }
 
@@ -126,9 +127,6 @@ intArrayResult_t intArray_remove( intArray_t* ia, unsigned int indexToBeRemoved 
 	
   printf( "Calling intArray_remove(...) with the parameter indexToBeRemoved -> %u.\n" , indexToBeRemoved );
 
-  // TO-DO!!!!!!!!!
-  // Test the edge cases REQ.
-
   // Validate parameters
   if (ia == NULL || ia->elementCount <= indexToBeRemoved) { 
     return INTARR_BADPARAM;
@@ -139,8 +137,8 @@ intArrayResult_t intArray_remove( intArray_t* ia, unsigned int indexToBeRemoved 
   ia->data[indexToBeRemoved] = ia->data[lastElementIndex];
   ia->elementCount--;
 
-	
-  return INTARR_OK; // You are free to modify this return statement.
+  // Return INTARR_OK upon success
+  return INTARR_OK;
 }
 
 
@@ -154,13 +152,12 @@ intArrayResult_t intArray_modify( intArray_t* ia, int newElement, unsigned int i
   printf( "Calling intArray_modify(...) with the parameters newElement -> %d and index -> %u.\n" , newElement, index );
 	
   // Validate parameters
-  if (ia == NULL || index >= ia->size) { 
+  if (ia == NULL || index >= ia->size || index < 0) { 
     return INTARR_BADPARAM;
   }
 
   // Assign a new value to the element at index "index"
   ia->data[index] = newElement; 
-
   return INTARR_OK;
 }
 
@@ -176,13 +173,14 @@ intArrayResult_t intArray_find( intArray_t* ia, int targetElement, unsigned int*
   printf( "Calling intArray_find(...) with the parameter targetElement -> %d.\n" , targetElement );
 
   // Validate parameters
-  if (ia == NULL) {
+  if (ia == NULL || index == NULL) {
     return INTARR_BADPARAM;
   }
 
-  // Check if the targetElement exists in the intArray_t
+  // Check if the targetElement exists in our data structure
   for (int i = 0, n = ia->elementCount; i < n; i++) {
-    // If found, set index to the current location in the array
+
+    // If found, set "index" to the current location in the array
     if (ia->data[i] == targetElement) {
       *index = i;
       return INTARR_OK;
@@ -204,8 +202,7 @@ intArrayResult_t intArray_find( intArray_t* ia, int targetElement, unsigned int*
  */
 intArrayResult_t intArray_sort( intArray_t* ia ) {
 	
-  // TO-DO !!!!
-  // OPTIMIZE BUBBLE SORT TO STOP IF NO SWAPS WERE MADE IN A ITERATION
+  // NOTE TO SELF: Function could be further optimized by stopping inner loop if no swaps were made
   printf( "Calling intArray_sort(...).\n" );
 
   // Validate parameters
@@ -213,9 +210,13 @@ intArrayResult_t intArray_sort( intArray_t* ia ) {
     return INTARR_BADPARAM;
   }
 
-  // Bubble Sort our data structure
-  for (int i = 0; i < ia->elementCount; i++) { 
-    for (int k = 0; k < ia->elementCount-i-1; k++) { 
+  // Loop through array elements n-1 times
+  for (int i = 0, j = ia->elementCount-1; i < j; i++) { 
+
+    // Loop through pairs of array elements
+    for (int k = 0, p = ia->elementCount-i-1; k < p; k++) { 
+
+      // Compare adjacent elements and swap if not in order
       if (ia->data[k] > ia->data[k+1]) { 
         int buffer = ia->data[k]; 
         ia->data[k] = ia->data[k+1];
@@ -223,7 +224,7 @@ intArrayResult_t intArray_sort( intArray_t* ia ) {
       }
     }
   }
-	
+
   return INTARR_OK;
 }
 							
@@ -245,13 +246,17 @@ intArray_t* intArray_copy( const intArray_t* ia ) {
   unsigned int size = ia->size;
   intArray_t *intArray_copy = intArray_create(size);
 
-  // Copy values from original data structure to the deep copy
-  if (intArray_copy != NULL) { 
-    intArray_copy->elementCount = ia->elementCount;
-      for (int i = 0, n = intArray_copy->elementCount; i < n; i++) {
-        intArray_copy->data[i] = ia->data[i];
-      }
+  // Return a NULL pointer if the memory allocation failed 
+  if (intArray_copy == NULL) { 
+    return NULL;
   }
+
+  // Copy values from original data structure to the deep copy
+  intArray_copy->elementCount = ia->elementCount;
+  for (int i = 0, n = intArray_copy->elementCount; i < n; i++) {
+    intArray_copy->data[i] = ia->data[i];
+  }
+
   return intArray_copy;
 }
 
@@ -313,8 +318,14 @@ intArrayResult_t intArray_write_to_json( intArray_t* ia, const char* filename ) 
 
   // Write to file contents of intArray_t in JSON format
   if (ia->elementCount > 0) {
+
+    // Write start of JSON format with '[' character
     fwrite("[\n", sizeof(char), 2, newFile);
-    for (int i = 0; i < ia->elementCount; i++) { 
+
+    // Write each element in our data structure in the format 'NUM,'
+    for (int i = 0; i < ia->elementCount; i++) {
+
+      // If writing of any element failed, close the file and return INTARR_ERROR
       if (fprintf(newFile, " %d%s", ia->data[i], i < ia->elementCount-1 ? ",\n" : "\n]") < 1) { 
         fclose(newFile); 
         return INTARR_ERROR;
@@ -322,16 +333,10 @@ intArrayResult_t intArray_write_to_json( intArray_t* ia, const char* filename ) 
     }
   }
 
-  // Close file and return INTARR_OK
+  // Close file and return INTARR_OK upon success
   fclose(newFile);
   return INTARR_OK;
 }
-
-
-
-
-
-
 
 
 /* Description: Loads a new array from the file called "filename", that was
@@ -343,8 +348,6 @@ intArrayResult_t intArray_write_to_json( intArray_t* ia, const char* filename ) 
  */
 intArray_t* intArray_load_from_json( const char* filename ) {
 
-  // Stubbing this function
-  // This stub is to be removed when you have successfully implemented this function.
   printf( "Calling intArray_load_from_json(...) with the filename -> %s.\n", filename );
 
   // Validate parameters 
@@ -356,31 +359,52 @@ intArray_t* intArray_load_from_json( const char* filename ) {
     return NULL;
   }
 
-  // Count elements and size of the data structure from the file
-  // TO-DO!!!
-  unsigned int size = 0; 
+  // Initialize counting variables
+  unsigned int size = 0;
+  char current; 
+  // Get first char from file stream
+  char previous = getc(toReadFile); 
 
+  // Count the number of int elements in file until feof returns EOF (!0)
+  while (feof(toReadFile) == 0) { 
+    current = getc(toReadFile);
+    // If current char is non-numerical and previous char is numerical, then it must be the end of an element
+    if(isdigit(current) && !isdigit(previous)) { 
+      size++;
+    }
 
+    // Set previous char to the current char in loop
+    previous = current;
+  }
 
-  // Create data structure with the size previously read, ensure that mem is correctly allocated
+  // Create new intArray_t, if memory allocation failed, close the file and return NULL
   intArray_t *arrayRead = intArray_create(size);
   if (arrayRead == NULL) { 
     fclose(toReadFile); 
     return NULL;
   }
 
+  // If number of elements in the file, return an empty intArray_t
+  if (size == 0) { 
+    return arrayRead;
+  }
 
-  // Return to the start of the file and read elements to our data structure
-  // TO-DO!!!!
-  int valuesAdded = 0; 
-
-
-
+  // Return to the start of the file and read elements to our new data structure
+  int valuesRead = 0;
+  int value = 0; 
+  fseek(toReadFile, 2, SEEK_SET);
+  while (fscanf(toReadFile, "%d,\n", &value) == 1) { 
+    intArray_append(arrayRead, value);
+    valuesRead++;
+  }
+  
   // Validate that elements were correctly read into our data structure 
-  if (size != valuesAdded) { 
+  if (arrayRead->elementCount != valuesRead) { 
     fclose(toReadFile);
     return NULL;
   }
 
+  // Close file and return INTARR_OK upon success
+  fclose(toReadFile);
   return arrayRead;
 }
