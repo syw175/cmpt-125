@@ -26,8 +26,6 @@
 #include "dataStructure.h"
 
 
-
-// TO-DO PARTIAL IMPLEMENTATION
 /* 
  * Description: Creates a new empty data structure of list_t type and 
  *              if successful, returns a pointer to it. 
@@ -35,12 +33,20 @@
  * Time Efficiency: O(1)
  */
 list_t* list_create( void ) {
-
   // Initialize and allocate memory for the linked list
   list_t* aList = malloc( sizeof(list_t) );
-  // Set the head of the empty linked list to NULL
-  aList->head = NULL;
-  // Return the linked list 
+
+  // Validate that memory was correctly allocated to the heap
+  if (aList != NULL) { 
+    // Set the head and tail of the empty linked list to NULL
+    aList->head = NULL;
+    aList->tail = NULL;
+
+    // Set initial elementCount value of 0
+    aList->elementCount = 0;
+  }
+
+  // Return the linkedlist... if malloc failed, a NULL pointer will be returned
   return aList;
 }
 
@@ -60,6 +66,8 @@ result_t list_destroy( list_t* list ) {
     return NULL_PARAM;
   }
 
+  // TO-DO... FREE ALL ELEMENTS IN THE LINKEDLIST
+
   // Free the memory allocated to the list
   free(list);
 
@@ -70,8 +78,6 @@ result_t list_destroy( list_t* list ) {
 }
 
 
-
-//TO-DO PARTIAL IMPLEMENTATION
 /* 
  * Description: Returns a pointer to a new element i.e., a node  
  *              containing "newElement" and a next-pointer set to NULL, 
@@ -80,9 +86,15 @@ result_t list_destroy( list_t* list ) {
  */
 element_t* element_create( int newElement ) {
 
+  // Allocate memory for the element
   element_t* anElement = malloc( sizeof(element_t) );
-  anElement->val = newElement;
 
+  // Validate that memory was correctly allocated to the heap and set the element's value
+  if (anElement != NULL) { 
+    anElement->val = newElement;
+  }
+
+  // Return the element... if malloc failed, a NULL pointer will be returned
   return anElement;
 }
 
