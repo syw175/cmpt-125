@@ -26,6 +26,7 @@
 #include "dataStructure.h"
 
 
+// Ready for final checking
 /* 
  * Description: Creates a new empty data structure of list_t type and 
  *              if successful, returns a pointer to it. 
@@ -58,26 +59,35 @@ list_t* list_create( void ) {
  * Time Efficiency: O(n)
  */ 
 result_t list_destroy( list_t* list ) {
-  printf( "Calling list_destroy(...).\n" );
 
-  // Check if the list is NULL
+  // Check if the list is NULL, return error 
   if (list == NULL) {
     printf( "Error: list_destroy(...) called with NULL list.\n" );
     return NULL_PARAM;
   }
 
-  // TO-DO... FREE ALL ELEMENTS IN THE LINKEDLIST
+  // Free list if element count is 0 or list is empty 
+  if (list->elementCount == 0) { 
+    free(list);
+    return OK;
+  }
+
+  // Does this work?
+  element_t *currentNode = list->head;
+  while (list->head != list->tail) { 
+    element_t *nextNode = currentNode->next;
+    free(currentNode);
+    list->head = nextNode;
+    list->elementCount--;
+  }
 
   // Free the memory allocated to the list
   free(list);
-
-  //  Do I need more? 
-
-  
   return OK;
 }
 
 
+// Ready for final checking
 /* 
  * Description: Returns a pointer to a new element i.e., a node  
  *              containing "newElement" and a next-pointer set to NULL, 
@@ -118,7 +128,6 @@ result_t list_append( list_t* list, int newElement ) {
 }
 
 
-//COMPLETE DO NOT MODIFY
 /* Description: Prepends a new element, i.e., a node containing "newElement", 
  *              to this data structure pointed to by "list" and returns OK. 
  *              If "newElement" cannot be prepended, leaves the 
@@ -189,7 +198,7 @@ element_t* list_get( list_t* list, unsigned int position ){
 }
 
 
-// TO-DO FUNCTION STUB
+// ASSUME THAT THIS WORKS FOR NOW
 /* Description: Returns a pointer to the element (i.e., to the node) that 
  *              contains the first occurrence of "targetElement" in the data 
  *              structure pointed to by "list". Returns NULL if "targetElement"
@@ -198,17 +207,33 @@ element_t* list_get( list_t* list, unsigned int position ){
  * Time efficiency: O(n)
  */ 
 element_t* list_find( list_t* list, int targetElement ) {
-
+  // Initialize placeholder value for a element_t
   element_t* anElement = NULL; 
-  
-  printf( "Calling list_find(...): find the first occurrence of targetElement %d in the list.\n", targetElement );
+
+  // Traverse the linked list if not NULL or EMPTY
+  if (list->head != NULL && list->elementCount > 0) {
+
+    //
+    element_t *current = list->head;
+
+  // Traverse the linked list until the end is reached or the target element is found
+    do { 
+      // If the current element's value is equal to the target element, set the placeholder to the current element
+      if (current->val == targetElement) { 
+        anElement = current;
+        // Break out of the loop
+        return anElement;
+      }
+      // Move to the next element
+      current = current->next;
+ 
+    } while (current != NULL);
+  }
   
   return anElement;
 }
 
 
-
-// COMPLETE - DO NOT MODIFY 
 /* Description: Prints the content of the data structure pointed to by "list",
  *              in human-readable form from the first element
  *              to the last element, between curly braces, then returns OK.

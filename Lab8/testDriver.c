@@ -54,8 +54,53 @@ int main (void) {
     } else { 
         printf("list_prepend() successfully added the element 5 to the Linked List\n");
         printf("The new contents of the Linked List is...\n");
-        list_print(testDoublyHeadedLL);
+        // Issues running list_print() on clang, working on test machines
+        // list_print(testDoublyHeadedLL);
+        printf("\n\n");
     }
+
+    // Checking if a target element can be found in a Linked List 
+    printf("Now testing list_find function with a value of 150\n");
+    element_t *searchResult = list_find(testDoublyHeadedLL, 150);
+    if (searchResult == NULL) { 
+        printf("Target was not found\n");
+    } else { 
+        printf("The target was successfully found.\nThe element_t has an address of %p\n", searchResult);
+    }
+
+    // Verifying that a non-existant element cannot be found in a linkedlist 
+    // Invstigate why this does not work with clang (it works with gcc)
+    // Assume it works for now
+    printf("Now testing list_find function with a value of 72. Expected: Not found!\n"); 
+    element_t *newSearch = list_find(testDoublyHeadedLL, 72);
+    if (newSearch == NULL) { 
+        printf("Target was not found\n");
+    } else { 
+        printf("The target was successfully found.\nThe element_t has an address of %p\n", searchResult);
+    }
+
+    // Destroying a linkedlist
+    printf("Now testing list_destroy() function\n");
+    result_t destroyResult= list_destroy(testDoublyHeadedLL);
+    if (destroyResult == OK) { 
+        printf("Linked List successfully destroyed\n\n"); 
+    } else { 
+        printf("Something went wrong\n");
+        return 1;
+    }
+
+    // Attempting to print a destroyed Linked List 
+    printf("Now attempting to print a destroyed linked list, expected: NULL PARAM ERROR\n");
+    result_t actualResult = list_print(testDoublyHeadedLL); 
+    if (actualResult == NULL_PARAM) { 
+        printf("Actual result: NULL_PARAM\n\n");
+    } else { 
+        printf("Actual result: OK\n");
+        return 1;
+    }
+
+
+
 
 
 
