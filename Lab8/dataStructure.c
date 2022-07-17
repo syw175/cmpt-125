@@ -17,16 +17,14 @@
  *               require a valid pointer to it as their first argument.
  *
  * Your name: Steven Wong
- * Modified Date: July 11, 2022
+ * Modified Date: July 17, 2022
 */
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "dataStructure.h"
 
 
-// Ready for Final Checks
 /* 
  * Description: Creates a new empty data structure of list_t type and 
  *              if successful, returns a pointer to it. 
@@ -52,7 +50,6 @@ list_t* list_create( void ) {
 }
 
 
-// Ready for Final Checks
 /*
  * Description: Frees all memory used by the data structure pointed to by "list". 
  *              Returns OK.
@@ -72,24 +69,27 @@ result_t list_destroy( list_t* list ) {
     return OK;
   }
 
-  // Does this work?
+  // Set current element to the head of the list
   element_t *currentNode = list->head;
+
+  // While current element is not NULL, free the memory allocated to it and set current element to the next element
   while (currentNode != NULL) { 
+    // Free the memory allocated to the current element
     element_t *nextNode = currentNode->next;
     free(currentNode);
+
+    // Set current element to the next element
     currentNode = nextNode;
+    // Decrement elementCount
     list->elementCount--;
   }
 
   // Free the memory allocated to the list
-  // free(currentNode);
-  // free(currentNode);
   free(list);
   return OK;
 }
 
 
-// Ready for Final Checks
 /* 
  * Description: Returns a pointer to a new element i.e., a node  
  *              containing "newElement" and a next-pointer set to NULL, 
@@ -111,7 +111,6 @@ element_t* element_create( int newElement ) {
 }
 
 
-// Ready for Final Checks
 /* Description: Appends a new element, i.e., a node containing "newElement", 
  *              to this data structure pointed to by "list" and returns OK. 
  *              If "newElement" cannot be appended, leaves the 
@@ -152,7 +151,6 @@ result_t list_append( list_t* list, int newElement ) {
 }
 
 
-// Ready for Final Checks
 /* Description: Prepends a new element, i.e., a node containing "newElement", 
  *              to this data structure pointed to by "list" and returns OK. 
  *              If "newElement" cannot be prepended, leaves the 
@@ -186,8 +184,6 @@ result_t list_prepend( list_t* list, int newElement ) {
 }
 
 
-// Ready for Final Checks
-// Revision: What happens if there's only 1 element? Do I have to do anything with the tail?
 /* Description: Removes the front (first) element (node) in the data 
  *              structure pointed to by "list" and returns OK. 
  *              If no elements (no nodes) can be removed, leaves the 
@@ -221,7 +217,6 @@ result_t list_removeFront( list_t* list ) {
 }
 							
 
-// Ready for Final Checks
 /* Description: Returns a pointer to the element (i.e., to the node) at 
  *              "position" in the data structure pointed to by "list". 
  *              The head of "list" is at "position" 0, the first element 
@@ -266,7 +261,6 @@ element_t* list_get( list_t* list, unsigned int position ){
 }
 
 
-// Ready for Final Checks
 /* Description: Returns a pointer to the element (i.e., to the node) that 
  *              contains the first occurrence of "targetElement" in the data 
  *              structure pointed to by "list". Returns NULL if "targetElement"
@@ -275,21 +269,22 @@ element_t* list_get( list_t* list, unsigned int position ){
  * Time efficiency: O(n)
  */ 
 element_t* list_find( list_t* list, int targetElement ) {
-  // Initialize placeholder value for a element_t
+  // Initialize a placeholder value for a node of type element_t
   element_t* anElement = NULL; 
 
   // Traverse the linked list if not NULL or EMPTY
   if (list->head != NULL && list->elementCount > 0) {
 
-    //
+    // Set the current element to the head of the list
     element_t *current = list->head;
 
   // Traverse the linked list until the end is reached or the target element is found
     do { 
       // If the current element's value is equal to the target element, set the placeholder to the current element
       if (current->val == targetElement) { 
+        // Set the placeholder to the current element
         anElement = current;
-        // Break out of the loop
+        // Break out of the loop and return the placeholder
         return anElement;
       }
       // Move to the next element
@@ -298,11 +293,11 @@ element_t* list_find( list_t* list, int targetElement ) {
     } while (current != NULL);
   }
   
+  // Return the element if found, return NULL if not found
   return anElement;
 }
 
 
-// Ready for Final Checks
 /* Description: Prints the content of the data structure pointed to by "list",
  *              in human-readable form from the first element
  *              to the last element, between curly braces, then returns OK.
@@ -312,6 +307,7 @@ element_t* list_find( list_t* list, int targetElement ) {
  */
 result_t list_print( list_t* list ) {
 
+  // Initialize the result to OK
   result_t result = OK;
 
   // Returns NULL_PARAM if "list" is NULL.
