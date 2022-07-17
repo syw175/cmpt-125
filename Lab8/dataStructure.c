@@ -59,7 +59,6 @@ result_t list_destroy( list_t* list ) {
 
   // Check if the list is NULL, return error 
   if (list == NULL) {
-    printf( "Error: list_destroy(...) called with NULL list.\n" );
     return NULL_PARAM;
   }
 
