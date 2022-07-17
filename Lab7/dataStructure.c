@@ -125,8 +125,6 @@ intArrayResult_t intArray_append( intArray_t* ia, int newElement ) {
  */
 intArrayResult_t intArray_remove( intArray_t* ia, unsigned int indexToBeRemoved ) {
 	
-  printf( "Calling intArray_remove(...) with the parameter indexToBeRemoved -> %u.\n" , indexToBeRemoved );
-
   // Validate parameters
   if (ia == NULL || ia->elementCount <= indexToBeRemoved) { 
     return INTARR_BADPARAM;
@@ -148,9 +146,7 @@ intArrayResult_t intArray_remove( intArray_t* ia, unsigned int indexToBeRemoved 
  * Time Efficiency: O(1)
  */
 intArrayResult_t intArray_modify( intArray_t* ia, int newElement, unsigned int index ) {
-	
-  printf( "Calling intArray_modify(...) with the parameters newElement -> %d and index -> %u.\n" , newElement, index );
-	
+		
   // Validate parameters
   if (ia == NULL || index >= ia->size || index < 0) { 
     return INTARR_BADPARAM;
@@ -170,8 +166,6 @@ intArrayResult_t intArray_modify( intArray_t* ia, int newElement, unsigned int i
  */
 intArrayResult_t intArray_find( intArray_t* ia, int targetElement, unsigned int* index ) {
     
-  printf( "Calling intArray_find(...) with the parameter targetElement -> %d.\n" , targetElement );
-
   // Validate parameters
   if (ia == NULL || index == NULL) {
     return INTARR_BADPARAM;
@@ -202,9 +196,6 @@ intArrayResult_t intArray_find( intArray_t* ia, int targetElement, unsigned int*
  */
 intArrayResult_t intArray_sort( intArray_t* ia ) {
 	
-  // NOTE TO SELF: Function could be further optimized by stopping inner loop if no swaps were made
-  printf( "Calling intArray_sort(...).\n" );
-
   // Validate parameters
   if (ia == NULL) { 
     return INTARR_BADPARAM;
@@ -235,7 +226,6 @@ intArrayResult_t intArray_sort( intArray_t* ia ) {
  *              or "ia" is NULL), returns a NULL pointer. 
  */
 intArray_t* intArray_copy( const intArray_t* ia ) {
-  printf( "Calling intArray_copy(...).\n" );
 
   // Validate parameters
   if (ia == NULL) { 
@@ -304,8 +294,6 @@ intArrayResult_t intArray_print( intArray_t* ia ) {
  */
 intArrayResult_t intArray_write_to_json( intArray_t* ia, const char* filename ) {
 
-  printf( "Calling intArray_write_to_json(...) with the filename -> %s.\n", filename );
-
   // Validate parameters
   assert(ia != NULL); 
   assert(filename != NULL);
@@ -347,8 +335,6 @@ intArrayResult_t intArray_write_to_json( intArray_t* ia, const char* filename ) 
  *              If "filename" is NULL, returns INTARR_BADPARAM.
  */
 intArray_t* intArray_load_from_json( const char* filename ) {
-
-  printf( "Calling intArray_load_from_json(...) with the filename -> %s.\n", filename );
 
   // Validate parameters 
   assert(filename != NULL);
