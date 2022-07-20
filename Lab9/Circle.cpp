@@ -37,6 +37,6 @@ using namespace std; // What is this??
 
 // TO-DO: double computeArea() -> compute and return the radius of the circle instance 
 
-// TO-DO: displayCircle() -> "Circle with radius 10.0 at point x = 12, y = 17"
+// TO-DO: void displayCircle() -> "Circle with radius 10.0 at point x = 12, y = 17"
 
 // TO-DO bool intersect(Circle c) -> returns true if c intersects the instance circle 
