@@ -18,6 +18,14 @@
 
 using namespace std; 
 
+// Default Constructor
+Circle::Circle() 
+{
+    this->xCoordinate = DEFAULT_COORD;
+    this->yCoordinate = DEFAULT_COORD;
+    this->radius = DEFAULT_RAD;
+}
+
 // Constructor
 Circle::Circle(int xCoordinate, int yCoordinate, double radius)
 {
