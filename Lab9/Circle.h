@@ -15,14 +15,21 @@
 class Circle {
 
 private: 
-    int xCoordinate = 0; 
-    int yCoordinate = 0; 
-    double radius = 10.0;
+    const int DEFAULT_COORD = 0;
+    const double DEFAULT_RAD = 10.0;
+    const double PI = 3.14159;
+    int xCoordinate; 
+    int yCoordinate; 
+    double radius;
 
 public: 
-    // Default Constructor 
-    Circle() = default;
+    // Valid initialization of class members in C++11
+    // https://stackoverflow.com/questions/45291142/what-is-a-c11-extension-wc11-extensions
+    // Circle() = default;
 
+    // Default Constructor 
+    Circle();
+    
     // Constructor overloading?
     Circle(int xCoordinate, int yCoordinate, double radius);
 
@@ -49,7 +56,4 @@ public:
 
     // Returns true if a circle instances another circle
     bool intersect(Circle c) const;
-
-    // Destructor?
-    // ~Rectangle();
 };

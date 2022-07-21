@@ -13,6 +13,7 @@
 
 #include <iostream>  // for printing out data
 #include <stdbool.h> // for booleans
+
 #include "Circle.h"
 
 using namespace std; 
@@ -20,6 +21,7 @@ using namespace std;
 // Constructor
 Circle::Circle(int xCoordinate, int yCoordinate, double radius)
 {
+    // Need to adjsut for variant checking
     this->xCoordinate = xCoordinate;
     this->yCoordinate = xCoordinate;
     this->radius = radius;
@@ -54,21 +56,34 @@ void Circle::move(int horiz, int vert)
 }
 
 // TO-DO: void setRadius(double r) -> setter func to change radius to r or 10.0 if r is invalid num 
-
+void Circle::setRadius(double r) 
+{
+    if (r <= 0.0) 
+    {
+        this->radius = DEFAULT_RAD;
+    } 
+    else 
+    {
+        this->radius = r;
+    }
+}
 
 // TO-DO: double computeArea() -> compute and return the area of the circle 
 double Circle::computeArea() const 
 {
-    
+    return PI * this->radius * this->radius;
 }
 
 // TO-DO: void displayCircle() -> "Circle with radius 10.0 at point x = 12, y = 17"
 void Circle::displayCircle() const 
 {
-    cout << "Circle with radius %f at point x = %i, y = %i";
+    cout << "Circle with radius " << getRadius() 
+    << " at point x = " << getX() << ", y = " << getY();
 }
 
 // TO-DO bool intersect(Circle c) -> returns true if c intersects the circle 
-
-
-// TO-DO DESTRUCTOR
+// https://www.bbc.co.uk/bitesize/guides/z9pssbk/revision/4
+bool Circle::intersect(Circle c) const
+{
+    return true;
+}
