@@ -77,7 +77,7 @@ void Circle::setRadius(double r)
 // Computes and returns the area of the circle
 double Circle::computeArea() const 
 {
-    return PI * this->radius * this->radius;
+    return PI * pow(this->radius, 2);
 }
 
 // Prints the circle's member values
