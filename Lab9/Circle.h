@@ -30,7 +30,7 @@ public:
     // Default Constructor 
     Circle();
     
-    // Constructor overloading?
+    // Constructor overloading
     Circle(int xCoordinate, int yCoordinate, double radius);
 
     // Get the xCoordinate value

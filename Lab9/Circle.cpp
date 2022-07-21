@@ -13,12 +13,13 @@
 
 #include <iostream>  // for printing out data
 #include <stdbool.h> // for booleans
+#include <cmath>     // for computing area
 
 #include "Circle.h"
 
 using namespace std; 
 
-// Default Constructor
+// Initializes the circle to the default values
 Circle::Circle() 
 {
     this->xCoordinate = DEFAULT_COORD;
@@ -26,72 +27,80 @@ Circle::Circle()
     this->radius = DEFAULT_RAD;
 }
 
-// Constructor
+// Initializes the circle to the given values
 Circle::Circle(int xCoordinate, int yCoordinate, double radius)
 {
-    // Need to adjsut for variant checking
+    // If the radius is less than 0, set it to 0
+    if (radius <= 0.0) radius = DEFAULT_RAD;
+
+    // Initialize the class members
     this->xCoordinate = xCoordinate;
     this->yCoordinate = yCoordinate;
     this->radius = radius;
 }
 
-
-// Getter method for x coordinate, returns int
+// Returns the xCoordinate value
 int Circle::getX() const
 {
     return this->xCoordinate;
 } 
 
-
-// Getter method for y coordinate, returns int 
+// Returns the yCoordinate value
 int Circle::getY() const 
 {
     return this->yCoordinate;
 }
 
-
-// Getter method for radius, returns double 
+// Returns the radius value
 double Circle::getRadius() const 
 {
     return this->radius;
 }
 
-// Change x and y coordinates members by horiz and vert
+// Moves the x and y coordinates by the offsets given
 void Circle::move(int horiz, int vert)
 {
     this->xCoordinate += horiz;
     this->yCoordinate += vert;
 }
 
-// TO-DO: void setRadius(double r) -> setter func to change radius to r or 10.0 if r is invalid num 
+// Sets the radius to the new value
 void Circle::setRadius(double r) 
 {
-    if (r <= 0.0) 
-    {
-        this->radius = DEFAULT_RAD;
-    } 
-    else 
-    {
-        this->radius = r;
-    }
+    // If the radius is less than 0, set it to 10.0
+    if (r <= 0.0) r = DEFAULT_RAD;
+
+    // Set the radius to the new value
+    this->radius = r;
 }
 
-// TO-DO: double computeArea() -> compute and return the area of the circle 
+// Computes and returns the area of the circle
 double Circle::computeArea() const 
 {
     return PI * this->radius * this->radius;
 }
 
-// TO-DO: void displayCircle() -> "Circle with radius 10.0 at point x = 12, y = 17"
+// Prints the circle's member values
 void Circle::displayCircle() const 
 {
-    cout << "Circle with radius " << getRadius() 
-    << " at point x = " << getX() << ", y = " << getY();
+    cout << "Circle with radius " << this->radius << " at point x = " << this->xCoordinate << ", y = " << this->yCoordinate << endl;
 }
+
 
 // TO-DO bool intersect(Circle c) -> returns true if c intersects the circle 
 // https://www.bbc.co.uk/bitesize/guides/z9pssbk/revision/4
 bool Circle::intersect(Circle c) const
 {
-    return true;
+    // Calculate the distance between the two circles
+    double distance = sqrt(pow(c.getX() - getX(), 2) + pow(c.getY() - getY(), 2));
+
+    // If the distance is less than the sum of the two radii, they intersect
+    if (distance < (getRadius() + c.getRadius()))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
