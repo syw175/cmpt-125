@@ -15,28 +15,60 @@
 #include <stdbool.h> // for booleans
 #include "Circle.h"
 
+using namespace std; 
 
-using namespace std; // What is this??
+// Constructor
+Circle::Circle(int xCoordinate, int yCoordinate, double radius)
+{
+    this->xCoordinate = xCoordinate;
+    this->yCoordinate = xCoordinate;
+    this->radius = radius;
+}
 
 
-// TO-DO: Default constructor that creates a circle of radius 10 and centred at coordinates (0, 0)
+// Getter method for x coordinate, returns int
+int Circle::getX() const
+{
+    return this->xCoordinate;
+} 
 
-// TO-DO: Constructor with parameters for x, y, and radius
 
-// TO-DO??? Destructor?? 
+// Getter method for y coordinate, returns int 
+int Circle::getY() const 
+{
+    return this->yCoordinate;
+}
 
-// TO-DO: int getX() -> getter func for x coordinate, returns int
 
-// TO-DO: int getY() -> getter func for y coordinate, returns int 
+// Getter method for radius, returns double 
+double Circle::getRadius() const 
+{
+    return this->radius;
+}
 
-// TO-DO: double getRadius() -> getter func for radius, returns double 
-
-// TO-DO: void move(int horiz, int vert) -> change x and y data members by horiz and vert
+// Change x and y coordinates members by horiz and vert
+void Circle::move(int horiz, int vert)
+{
+    this->xCoordinate += horiz;
+    this->yCoordinate += vert;
+}
 
 // TO-DO: void setRadius(double r) -> setter func to change radius to r or 10.0 if r is invalid num 
 
-// TO-DO: double computeArea() -> compute and return the radius of the circle instance 
+
+// TO-DO: double computeArea() -> compute and return the area of the circle 
+double Circle::computeArea() const 
+{
+    
+}
 
 // TO-DO: void displayCircle() -> "Circle with radius 10.0 at point x = 12, y = 17"
+void Circle::displayCircle() const 
+{
+    cout << "Circle with radius %f at point x = %i, y = %i";
+}
 
-// TO-DO bool intersect(Circle c) -> returns true if c intersects the instance circle 
+// TO-DO bool intersect(Circle c) -> returns true if c intersects the circle 
+
+
+// TO-DO DESTRUCTOR

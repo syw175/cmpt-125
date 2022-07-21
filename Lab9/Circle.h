@@ -10,28 +10,21 @@
 * Date: July 19, 2022
 */
 
-#pragma once  // What is this???
+#pragma once
 
 class Circle {
 
 private: 
-    const double DEFAULT_VALUE = 10.0;  // Default value for radius? // Default xy = 0,0    
-    int xCoordinate; 
-    int yCoordinate; 
-    double radius;
+    int xCoordinate = 0; 
+    int yCoordinate = 0; 
+    double radius = 10.0;
 
 public: 
     // Default Constructor 
-    // What is the relationship with the DEFAULT_VALUE? 
-    Circle();
+    Circle() = default;
 
     // Constructor overloading?
-    Circle(int xValue, int yValue, double radiusValue);
-
-    // Destructor?
-
-    // Methods    
-    // const ensures that getter functions can not change class members
+    Circle(int xCoordinate, int yCoordinate, double radius);
 
     // Get the xCoordinate value
     int getX() const;
@@ -43,7 +36,7 @@ public:
     double getRadius() const;
 
     // Move the x and y coordinates by the offsets given
-    void move(int horiz, int vert) const; 
+    void move(int horiz, int vert); 
 
     // Set the radius to the new value 
     void setRadius(double r);
@@ -57,5 +50,6 @@ public:
     // Returns true if a circle instances another circle
     bool intersect(Circle c) const;
 
-
-}; // What is the semicolons for here??
+    // Destructor?
+    // ~Rectangle();
+};
