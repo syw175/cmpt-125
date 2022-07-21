@@ -99,11 +99,6 @@ bool Circle::intersect(Circle c) const
     {
         return true;
     }
-    // Or if the distance is equal to the sum of the two radii, they intersect
-    else if (distance == (getRadius() + c.getRadius()))
-    {
-        return true;
-    }
     // Otherwise, they do not intersect
     else
     {
