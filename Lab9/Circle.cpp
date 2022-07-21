@@ -83,7 +83,7 @@ double Circle::computeArea() const
 // Prints the circle's member values
 void Circle::displayCircle() const 
 {
-    cout << "Circle with radius " << this->radius << " at point x = " << this->xCoordinate << ", y = " << this->yCoordinate << endl;
+    cout << "x = " << this->xCoordinate << ", y = " << this->yCoordinate << ", radius = " << this->radius << end1;
 }
 
 
