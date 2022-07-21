@@ -31,7 +31,7 @@ Circle::Circle(int xCoordinate, int yCoordinate, double radius)
 {
     // Need to adjsut for variant checking
     this->xCoordinate = xCoordinate;
-    this->yCoordinate = xCoordinate;
+    this->yCoordinate = yCoordinate;
     this->radius = radius;
 }
 
