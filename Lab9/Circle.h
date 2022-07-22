@@ -1,13 +1,10 @@
 /*
-* Circle.cpp
+* Circle.h
 *
-* Description: This class models a circle with a (x, y) integer coordinate 
-*              representing the circle's center and a double radisu. The x 
-*              and y integers can be positive or negative. The radius must
-*              have a value greater than 0.
+* Description: Header file for Circle class.
 *
 * Author: Steven Wong
-* Date: July 19, 2022
+* Date: July 21, 2022
 */
 
 #pragma once

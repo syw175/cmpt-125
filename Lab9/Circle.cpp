@@ -7,11 +7,10 @@
 *              have a value greater than 0.
 *
 * Author: Steven Wong
-* Date: July 19, 2022
+* Date: July 21, 2022
 */
 
-#define _USE_MATH_DEFINES
-
+#define _USE_MATH_DEFINES // for math constants
 #include <iostream>  // for printing out data
 #include <stdbool.h> // for booleans
 #include <cmath>     // for computing area
