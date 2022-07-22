@@ -84,7 +84,7 @@ double Circle::computeArea() const
 // Prints the circle's member values
 void Circle::displayCircle() const 
 {
-    cout << "x = " << getX() << ", y = " << getY() << ", radius = " << getRadius() << endl;
+    cout << "\nx = " << getX() << ", y = " << getY() << ", radius = " << getRadius() << endl;
 }
 
 // Returns true if the circles intersect, false otherwise
