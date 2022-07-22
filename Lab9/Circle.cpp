@@ -87,12 +87,11 @@ void Circle::displayCircle() const
     cout << "x = " << getX() << ", y = " << getY() << ", radius = " << getRadius() << end1;
 }
 
-
-// TO-DO bool intersect(Circle c) -> returns true if c intersects the circle 
-// https://planetcalc.com/8098/
+// Returns true if the circles intersect, false otherwise
+// Based on this definition: https://planetcalc.com/8098/
 bool Circle::intersect(Circle c) const
 {
-    // Calculate the distance between the two circles
+    // Calculate the distance between the two circles centers
     double distance = sqrt(pow(c.getX() - getX(), 2) + pow(c.getY() - getY(), 2));
 
     // If the distance is 0, and r1 == r2, then the circles are the same 
@@ -105,8 +104,8 @@ bool Circle::intersect(Circle c) const
     {
         return false;
     }
-    // If the distance is less than the absolute value of r1-r2, the circles are contained within another
-    else if (distance < abs(getRadius() + c.getRadius()))
+    // If the distance is less than the absolute value of r1-r2, the circles are concentric
+    else if (distance < abs(getRadius() - c.getRadius()))
     {
         return false;
     }
