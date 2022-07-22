@@ -17,7 +17,6 @@ class Circle {
 private: 
     const int DEFAULT_COORD = 0;
     const double DEFAULT_RAD = 10.0;
-    const double PI = 3.14159;
     int xCoordinate; 
     int yCoordinate; 
     double radius;

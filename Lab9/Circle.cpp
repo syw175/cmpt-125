@@ -10,6 +10,7 @@
 * Date: July 19, 2022
 */
 
+#define _USE_MATH_DEFINES
 
 #include <iostream>  // for printing out data
 #include <stdbool.h> // for booleans
@@ -77,31 +78,40 @@ void Circle::setRadius(double r)
 // Computes and returns the area of the circle
 double Circle::computeArea() const 
 {
-    return PI * pow(this->radius, 2);
+    return M_PI * pow(getRadius(), 2);
 }
 
 // Prints the circle's member values
 void Circle::displayCircle() const 
 {
-    cout << "x = " << this->xCoordinate << ", y = " << this->yCoordinate << ", radius = " << this->radius << end1;
+    cout << "x = " << getX() << ", y = " << getY() << ", radius = " << getRadius() << end1;
 }
 
 
 // TO-DO bool intersect(Circle c) -> returns true if c intersects the circle 
-// https://www.bbc.co.uk/bitesize/guides/z9pssbk/revision/4
+// https://planetcalc.com/8098/
 bool Circle::intersect(Circle c) const
 {
     // Calculate the distance between the two circles
     double distance = sqrt(pow(c.getX() - getX(), 2) + pow(c.getY() - getY(), 2));
 
-    // If the distance is less than the sum of the two radii, they intersect
-    if (distance < (getRadius() + c.getRadius()))
-    {
-        return true;
-    }
-    // Otherwise, they do not intersect
-    else
+    // If the distance is 0, and r1 == r2, then the circles are the same 
+    if (distance == 0 && getRadius() == c.getRadius())
     {
         return false;
+    }
+    // If distance is greater than the sum of the two radii, they are separate
+    else if (distance > (getRadius() + c.getRadius()))
+    {
+        return false;
+    }
+    // If the distance is less than the absolute value of r1-r2, the circles are contained within another
+    else if (distance < abs(getRadius() + c.getRadius()))
+    {
+        return false;
+    }
+    else 
+    {
+        return true;
     }
 }
