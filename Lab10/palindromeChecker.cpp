@@ -4,9 +4,10 @@
  * Class Description: C++ program that determines when a given word is a palindrome.
  *                    Note that words of length 1 are palindromes.
  *
- * Author:
- * Date:
+ * Author: Steven Wong
+ * Date: July 18, 2022
  */
+ 
 
 #include <iostream>
 #include <cstring>
