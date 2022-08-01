@@ -8,26 +8,25 @@
  * Author: Steven Wong
  */
 
-#include <cstdio>    // Needed for NULL
-#include <iostream>  // for printing out data
 #include "StackNode.h"
 
 
 using namespace std; 
 
-
+// Default Constructor
 StackNode::StackNode() 
 {
-    this->letter = NULL;
     this->next = NULL;
 }
 
+// Constructor when given a char data element
 StackNode::StackNode(char aLetter)
 {
     this->letter = aLetter;
     this->next = NULL;
 }
 
+// Constructor when given a char data element and a pointer to a StackNode
 StackNode::StackNode(char aLetter, StackNode *nextNode)
 {
     this->letter = aLetter;

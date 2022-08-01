@@ -4,7 +4,7 @@
  * Class Invariant: ... in a LIFO order.
  *
  * Author: Steven Wong
- * Date: July 26, 2022
+ * Date: July 31, 2022
  */
 
 #pragma once
@@ -14,8 +14,6 @@
 class Stack { 
 
 private:
-    // Some Data Structure
-    char data;
     StackNode *head;
 
 public: 
@@ -29,11 +27,11 @@ public:
     void push(char newElement);
 
     // Remove and return the top most element of the stack
-    char pop(void); 
+    char pop(); 
 
     // Retrieve and return the top most element of the stack 
-    char peek(void) const; 
+    char peek() const; 
 
     // Returns true if the Stack is empty and false otherwise
-    bool isEmpty(void) const;
+    bool isEmpty() const;
 };
