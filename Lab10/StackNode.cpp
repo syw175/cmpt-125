@@ -8,6 +8,7 @@
  * Author: Steven Wong
  */
 
+#include <stdio.h>  // For NULL
 #include "StackNode.h"
 
 

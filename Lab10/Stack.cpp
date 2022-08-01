@@ -7,6 +7,7 @@
  * Date: July 31, 2022
  */
 
+#include <stdio.h>  // For NULL
 #include <cassert>  // For assert()
 #include "Stack.h"
 
