@@ -8,7 +8,7 @@ using namespace std;
 // Constructor: Constructs a "Points" object that has no points yet
 //              (numOfPoints = 0), that has an array "points" not yet allocated
 //              (points = NULL), but can contain up to 10 points (arraySize = 10)
-//              when it will be allocated.
+    //              when it will be allocated.
 Points::Points() : numOfPoints(0), points(NULL), arraySize(10)
 {
 }
@@ -104,12 +104,14 @@ unsigned int Points::removeDuplicates( int thePoint )
         {
             // Remove the point
             this->points[i] = this->points[numOfPoints - 1];
-            // Decrement the number of points
-            this->numOfPoints--;
+            // Decrease the number of points
+            // this->numOfPoints--;
             // Increment the counter
             count++;
         }
     }
+    // Decrease the number of points
+    this->numOfPoints -= count;
     // Return the counter
     return count;
 }
