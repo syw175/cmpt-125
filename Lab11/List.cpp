@@ -85,17 +85,30 @@ bool List::removeAtFront( ) {
 
   bool result = true;
   
-  // Get the next node 
-  Node* nextNode = this->head->next;
+  // Validate that the list contains at least one element
+  if (this->getElementCount() > 0) {
+    // Get the first element
+    Node* tobeRemoved = head;
+    // Save the head's next element
+    head = head->next;
+    
+    // Delete the first element
+    tobeRemoved->next = NULL;
+    delete tobeRemoved;
+    tobeRemoved = NULL;
+    
+    // Update the tail if the list is now empty
+    if ( head == NULL ) tail = NULL;
+    
+    // Decrement the element count
+    elementCount--;
+  }
 
-  // Set the head to NULL
-  delete this->head;
-  this->head = NULL; 
+  // If the list is already empty, set result to false
+  else
+    result = false;
 
-  // Set the head to the next node
-  this->head = nextNode;
-  this->elementCount--;
-
+  // Return the result
   return result;
 } 
 
@@ -107,10 +120,17 @@ bool List::removeAtFront( ) {
 bool List::getBackElement( int * backElement ) const {
 	
   bool result = true;
+
+  // Check that the list contains at least one element
+  if (this->getElementCount() > 0) {
+    // Get the last element
+    *backElement = tail->data;
+  }
+  // Otherwise, set the result to false
+  else
+    result = false;
   
-  Node *lastNode = this->tail;
-  *backElement = lastNode->data;
-     
+  // Return the result     
   return result;
 }
 
