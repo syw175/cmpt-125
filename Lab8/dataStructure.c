@@ -1,4 +1,4 @@
-/* 
+ /* 
  * dataStructure.c
  *
  * Provides a data structure made of a doubly-headed singly-linked list (DHSL) 
@@ -239,23 +239,25 @@ element_t* list_get( list_t* list, unsigned int position ){
     return anElement;
   }
 
-  // Set the element to the head of the list
-  int currentIndex = 0;
-  element_t *currentElement = list->head;
+  // Set the starting index
+  unsigned int index = 1;
 
-  // Loop through the list until the element is found
-  while (currentElement != NULL) { 
-    // If the current index is the position, set the element to the current element and return it
-    if (currentIndex == position) { 
-      anElement = currentElement; 
+  // Set the current element to the first element in the list
+  anElement = list->head->next;
+
+  // While the current element is not NULL, check if the index is equal to the position
+  while (anElement != NULL) { 
+    if (index == position) 
+    { 
       return anElement;
     }
-    // Increment the current index and set the current element to the next element
-    currentElement = currentElement->next;
-    currentIndex++;
+    // Set the current element to the next element in the list
+    anElement = anElement->next;
+    // Increment the index
+    index++;
   }
 
-  // Return the element if found, return NULL if not found
+  // Return NULL if the index is not equal to the position
   return anElement;
 }
 
