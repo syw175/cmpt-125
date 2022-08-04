@@ -38,21 +38,37 @@ int main() {
 
   // Removing an element from the front
   cout << "Removing the first element From the List" <<endl;
-  aList->removeAtFront();
-  cout << "Displaying the List with " << aList->getElementCount( ) << " elements." << endl; 
-  aList->displayList( );
+
+  // Check that the precondition (the list is not empty) is met
+  if (aList->getElementCount() > 0) 
+  {
+    // Remove the first element
+    aList->removeAtFront();
+    // Display the list
+    aList->displayList();
+  }
+  else
+  {
+    // If the list was empty, display an error message
+    cout << "List is empty" << endl;
+  }
 
   // Now getting the back element
   cout << "Now getting the back element from the List" << endl;
-  int *element;
-  aList->getBackElement(*element);
-  // cout << "The last element in the list is" << *element << endl;
 
-
-
-
-
-
+  // Check that the precondition (the list is not empty) is met
+  if (aList->getElementCount() > 0) 
+  {
+    // Get the back element and display it
+    int backElement = 0;
+    aList->getBackElement(&backElement);
+    cout << "The back element is: " << backElement << endl;
+  }
+  else
+  {
+    // If the list was empty, display an error message
+    cout << "List is empty" << endl;
+  }
 
   delete aList;
   aList = NULL;
