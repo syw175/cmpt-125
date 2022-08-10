@@ -43,15 +43,23 @@ int main() {
   if (aList->getElementCount() > 0) 
   {
     // Remove the first element
-    aList->removeAtFront();
-    // Display the list
-    aList->displayList();
+    if (!aList->removeAtFront())
+    {
+      cout << "Could not aList->removeFromFront( )." << endl;
+    }
+    else
+    {
+      // Display the list
+      cout << "Displaying the List with " << aList->getElementCount() << " elements." << endl;
+      aList->displayList();
+    }
   }
   else
   {
     // If the list was empty, display an error message
     cout << "List is empty" << endl;
   }
+
 
   // Now getting the back element
   cout << "Now getting the back element from the List" << endl;
@@ -61,8 +69,14 @@ int main() {
   {
     // Get the back element and display it
     int backElement = 0;
-    aList->getBackElement(&backElement);
-    cout << "The back element is: " << backElement << endl;
+    if (aList->getBackElement(&backElement))
+    {
+      cout << "The back element is " << backElement << endl;
+    }
+    else
+    {
+      cout << "Could not get the back element" << endl;
+    }
   }
   else
   {
