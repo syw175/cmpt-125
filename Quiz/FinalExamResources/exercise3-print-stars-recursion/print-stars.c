@@ -11,6 +11,7 @@ void printStars(unsigned int startingStars, unsigned int maxStars);
 
 int main (void)
 {
+  // Test with starting points 1-5
   int start = 1;
   int max = 5;
 
