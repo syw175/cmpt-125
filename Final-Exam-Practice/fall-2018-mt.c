@@ -3,14 +3,21 @@
 // What will be the output of the following code? 
 int foo (int *x, int *y, int z) 
 {
-    y =x; 
-    z=7; 
-    *y =z;
+    y = x; 
+    z = 7; 
+    *y = z;
 }
 
-int main() {
-    int a= 0, b = 1, c = 2;
+int main() 
+{
+    int a = 0;
+    int b = 1; 
+    int c = 2;
+
     foo(&a, &b, c);
+
+
+    
     printf("a = %d, b= %d, c = %d", a, b, c);
     return 0;
 }

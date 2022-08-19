@@ -1,6 +1,6 @@
 // Program: List.cpp
 // Description: An array based list class 
-//	Date: August 12, 2022
+//	Date: August 15, 2022
 //	Name: Steven Wong
 
 #include <cstdio>
