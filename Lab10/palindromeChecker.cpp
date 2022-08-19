@@ -14,35 +14,32 @@
 #include <cctype>
 #include "Stack.h"
 
-// Function prototype 
-void loadStringIntoStack(Stack *aStack, std::string aWord);
-bool isPalindrome(Stack *aStack, Stack *bStack);
 
 using namespace std;
+
+// Function prototype 
+void loadStringIntoStack(Stack *aStack, string aWord);
+bool isPalindrome(Stack *aStack, string word);
+
 
 
 int main() {
 
   /* Some variables declaration - you may need more. */
-  Stack * aStack = new Stack(); 
-  Stack * bStack = new Stack();
+  Stack *aStack = new Stack(); 
   string theWord = "";
   
   /* Prompt user for a word and read the word. */
   cout << "Please, enter a word: ";
   /* Remove all leading whitespace -> ws */ 
   getline(cin >> ws, theWord);
-  
-  // Make a copy of the word but reversed
-  string copy = theWord;
-  reverse(copy.begin(), copy.end());
-  
-  // Load the two words into the stack
+
+  // Load word into the stack
   loadStringIntoStack(aStack, theWord);
-  loadStringIntoStack(bStack, copy);
+
 
   // Check if theWord is a palindrome
-  if (isPalindrome(aStack, bStack)) 
+  if (isPalindrome(aStack, theWord))
   {
     cout << "The word " << theWord << " is a palindrome." << endl;
   } 
@@ -56,30 +53,19 @@ int main() {
 
 
 // Check whether two strings in a given stack are valid palindromes
-bool isPalindrome(Stack *aStack, Stack *bStack) 
+bool isPalindrome(Stack *aStack, string word) 
 {
-  // Check that both stacks are valid 
+  // Check that stack are valid 
   assert(aStack != NULL);
-  assert(bStack != NULL);
 
-  // While both stacks are not empty... 
-  while (!aStack->isEmpty() && !bStack->isEmpty()) 
+  // Iterate through half the word and check it against the back half by popping in the stack
+  for (int i = 0; i < word.length()/2; i++)
   {
-    // Pop the first element of aStack and bStack
-    if (aStack->pop() != bStack->pop()) 
-    {
-      // If the first element aStack != first element bStack... the word is not a palindrome
-      return false;
-    }
+    // If the current letter is not a match... then, the word is not a palindrome
+    if (aStack->pop() != word[i]) return false;
   }
 
-  // If either stack is empty, theWord is not a palindrome
-  if (!aStack->isEmpty() || !bStack->isEmpty()) 
-  {
-    return false;
-  }
-
-  // At this point, theWord is a palindrome
+  // At this point, the back and front halves equal and the word is a palindrome
   return true;
 }
 
